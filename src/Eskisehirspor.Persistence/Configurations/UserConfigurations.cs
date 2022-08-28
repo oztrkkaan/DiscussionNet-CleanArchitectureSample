@@ -44,7 +44,7 @@ namespace Eskisehirspor.Persistence.Configurations
 
             builder.Property(m => m.AuthorStatus)
                 .IsRequired()
-                .HasConversion<AuthorStatuses>();
+                .HasConversion<byte>();
 
             builder.Property(m => m.Roles)
                 .IsRequired()

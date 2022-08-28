@@ -57,6 +57,7 @@ namespace Eskisehirspor.Domain.Entities
             [Display(Name = "Uzaklaştırılmış Yazar")]
             Banned
         }
+        public User() { }
 
 
         public void SetDisplayName(string displayName)
