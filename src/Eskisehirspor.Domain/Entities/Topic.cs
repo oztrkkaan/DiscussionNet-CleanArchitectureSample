@@ -8,7 +8,6 @@ namespace Eskisehirspor.Domain.Entities
         {
             ThrowExceptionIfTagsNullOrEmpty(tags);
             SetSubject(subject);
-            SetCreationDate();
         }
         public string Subject { get; private set; }
         public string UrlName => Subject;
@@ -18,7 +17,7 @@ namespace Eskisehirspor.Domain.Entities
         {
             ThrowExceptionIfTagsNullOrEmpty(tags);
         }
-        private void ThrowExceptionIfTagsNullOrEmpty(List<Tag> tags)
+        private static void ThrowExceptionIfTagsNullOrEmpty(List<Tag> tags)
         {
             if (tags == null || tags.Any())
             {

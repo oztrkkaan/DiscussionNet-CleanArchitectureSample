@@ -4,12 +4,11 @@ namespace Eskisehirspor.Domain.Entities
 {
     public class UserEmailVerification : AuditableEntity
     {
-        private const int ExpirationDays = 7;
+        private const int EXPIRATION_DAYS = 7;
         public UserEmailVerification(User user)
         {
             User = user;
             SetGuid();
-            SetCreationDate();
         }
         public Guid Guid { get; private set; }
         public DateTime ExpirationDate { get; private set; }
@@ -23,7 +22,7 @@ namespace Eskisehirspor.Domain.Entities
         }
         public void SetExpirationDate()
         {
-            ExpirationDate = DateTime.Now.AddDays(ExpirationDays);
+            ExpirationDate = DateTime.Now.AddDays(EXPIRATION_DAYS).ToUniversalTime();
         }
     }
 }

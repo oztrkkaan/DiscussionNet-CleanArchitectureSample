@@ -1,6 +1,10 @@
 ﻿using Eskisehirspor.Domain.Common;
 using Eskisehirspor.Domain.Interfaces;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Eskisehirspor.Domain.Entities
 {
@@ -8,9 +12,14 @@ namespace Eskisehirspor.Domain.Entities
     {
         public const int USERNAME_MAX_LENGTH = 16;
         public const int USERNAME_MIN_LENGTH = 3;
+        public const string USERNAME_REGEX = @"^@?(\w){{0},{1}}$";
+
         public const int DISPLAYNAME_MAX_LENGTH = 30;
         public const int DISPLAYNAME_MIN_LENGTH = 1;
-        public const int PASSWORD_MIN_LENGTH = 6;
+
+        public const int PASSWORD_MIN_LENGTH = 8;
+        public const string PASSWORD_RULE_MESSAGE = "Şifre en az {0} karakterden oluşmalı";
+
         public const int EMAIL_MAX_LENGTH = 100;
         public const int LOCATION_MAX_LENGTH = 20;
         public const int SIGNATURE_MAX_LENGTH = 255;
@@ -18,16 +27,15 @@ namespace Eskisehirspor.Domain.Entities
 
         public User(string username, string displayName, string password, string passwordConfirm, string email)
         {
-            Username = username;
-            DisplayName = displayName;
+            SetUsername(username);
+            SetDisplayName(displayName);
             SetPassword(password, passwordConfirm);
             SetEmail(email);
-            SetAuthorStatus(AuthorStatus);
-            SetCreationDate();
+            SetAuthorStatus(AuthorStatuses.Newbie);
         }
         public string Username { get; private set; }
         public string DisplayName { get; private set; }
-        public byte[] Password { get; private set; }
+        public byte[] PasswordHash { get; private set; }
         public byte[] PasswordSalt { get; private set; }
         public string Email { get; private set; }
         public string? Location { get; private set; }
@@ -37,6 +45,8 @@ namespace Eskisehirspor.Domain.Entities
         public AuthorStatuses AuthorStatus { get; private set; }
         public string Roles { get; private set; }
         public bool IsEmailVerified { get; set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime? DeletionDate { get; private set; }
 
         public enum AuthorStatuses
         {
@@ -48,26 +58,75 @@ namespace Eskisehirspor.Domain.Entities
             Banned
         }
 
-        public bool IsDeleted { get; private set; }
-        public DateTime? DeletionDate { get; private set; }
 
+        public void SetDisplayName(string displayName)
+        {
+            if (!IsValidDisplayName(displayName))
+            {
+                throw new Exception($"DisplayName length must be {DISPLAYNAME_MIN_LENGTH}-{DISPLAYNAME_MAX_LENGTH}");
+            }
+            DisplayName = displayName;
+        }
+        public static bool IsValidDisplayName(string displayName)
+        {
+            if (displayName.Length < DISPLAYNAME_MIN_LENGTH || displayName.Length > DISPLAYNAME_MAX_LENGTH)
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool IsValidUsername(string username)
+        {
+            var usernameRegex = string.Format(USERNAME_REGEX, USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
+            var regex = new Regex(usernameRegex);
+
+            return regex.IsMatch(username);
+        }
+        private void SetUsername(string username)
+        {
+            if (!IsValidUsername(username))
+            {
+                throw new Exception("Invalid username");
+            }
+            Username = username;
+        }
         public void SoftDelete()
         {
             IsDeleted = true;
-            DeletionDate = DateTime.Now;
+            DeletionDate = DateTime.Now.ToUniversalTime();
         }
-
-        private bool IsPasswordValid(string password, string passwordConfirm)
+        public static bool IsValidPassword(string password, string passwordConfirm)
         {
-            //TODO: password kuralları tanımlanmalı
+            if (password != passwordConfirm)
+            {
+                throw new Exception();
+            }
+            if (password.Length < PASSWORD_MIN_LENGTH)
+            {
+                throw new Exception();
+            }
             return true;
         }
-        private (byte[] password, byte[] passwordSalt) CryptPassword(string password)
+        private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string password)
         {
-            //TODO: password şifrelenmeli
-            return (new byte[1], new byte[1]);
+            using var hmac = new System.Security.Cryptography.HMACSHA512();
+            return (hmac.Key, hmac.ComputeHash(Encoding.UTF8.GetBytes(password)));
         }
-
+        public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         public void SetEmail(string email)
         {
             bool isValidEmail = IsValidEmail(email);
@@ -77,21 +136,28 @@ namespace Eskisehirspor.Domain.Entities
             }
             Email = email;
         }
-        private bool IsValidEmail(string email)
+        public static bool IsValidEmail(string email)
         {
-            return true;
+            try
+            {
+                var mailAddress = new MailAddress(email);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
-
         public void SetPassword(string password, string passwordConfirm)
         {
-            bool isPasswordValid = IsPasswordValid(password, passwordConfirm);
-            if (!isPasswordValid)
+            bool isValidPassword = IsValidPassword(password, passwordConfirm);
+            if (!isValidPassword)
             {
                 throw new Exception();
             }
 
-            var cryptedPassword = CryptPassword(password);
-            Password = cryptedPassword.password;
+            var cryptedPassword = CreatePasswordHash(password);
+            PasswordHash = cryptedPassword.passwordHash;
             PasswordSalt = cryptedPassword.passwordSalt;
         }
         public void SetAuthorStatus(AuthorStatuses authorStatus)

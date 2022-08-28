@@ -9,7 +9,6 @@ namespace Eskisehirspor.Domain.Entities
         {
             SetContent(content);
             SetTopic(topic);
-            SetCreationDate();
         }
 
         public string Content { get; private set; }
@@ -36,7 +35,7 @@ namespace Eskisehirspor.Domain.Entities
         public void SoftDelete()
         {
             IsDeleted = true;
-            DeletionDate = DateTime.Now;
+            DeletionDate = DateTime.Now.ToUniversalTime();
         }
         public void UpdateContent(string newContent)
         {

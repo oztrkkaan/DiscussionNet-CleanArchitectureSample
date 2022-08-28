@@ -10,7 +10,6 @@ namespace Eskisehirspor.Domain.Entities
             SetThread(thread);
             SetReaction(reaction, false);
             SetUser(reactedBy);
-            SetCreationDate();
         }
         public Thread Thread { get; private set; }
         public User ReactedBy { get; set; }
@@ -28,7 +27,7 @@ namespace Eskisehirspor.Domain.Entities
         public void SoftDelete()
         {
             IsDeleted = true;
-            DeletionDate = DateTime.Now;
+            DeletionDate = DateTime.Now.ToUniversalTime();
         }
         private void SetThread(Thread thread)
         {

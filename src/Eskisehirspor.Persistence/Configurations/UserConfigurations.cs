@@ -20,7 +20,7 @@ namespace Eskisehirspor.Persistence.Configurations
                 .HasMaxLength(DISPLAYNAME_MAX_LENGTH)
                 .IsRequired();
 
-            builder.Property(m => m.Password)
+            builder.Property(m => m.PasswordHash)
                 .HasMaxLength(500)
                 .IsRequired();
 

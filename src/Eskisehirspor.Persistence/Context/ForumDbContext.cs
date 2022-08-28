@@ -1,5 +1,4 @@
 ﻿using Eskisehirspor.Application.Common.Interfaces;
-using Eskisehirspor.Domain.Common;
 using Eskisehirspor.Domain.Entities;
 using Eskisehirspor.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +7,7 @@ using System.Reflection;
 
 namespace Eskisehirspor.Persistence.Context
 {
-    public class ForumDbContext : DbContext, IContactDbContext
+    public class ForumDbContext : DbContext, IForumDbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Topic> Topics { get; set; }
@@ -29,21 +28,6 @@ namespace Eskisehirspor.Persistence.Context
 
         public async override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-            {
-                switch (entry.State)
-                {
-                    case EntityState.Added:
-                        entry.Entity.SetCreationDate();
-                        break;
-                    case EntityState.Modified:
-                        entry.Entity.SetModifiedDate();
-                        break;
-                    default:
-                        break;
-                }
-            }
-
             foreach (var entry in ChangeTracker.Entries<ISoftDelete>())
             {
                 switch (entry.State)
@@ -56,7 +40,6 @@ namespace Eskisehirspor.Persistence.Context
                         break;
                 }
             }
-
             return await base.SaveChangesAsync(cancellationToken);
         }
         public async Task<IDbContextTransaction> BeginTransactionAsync()

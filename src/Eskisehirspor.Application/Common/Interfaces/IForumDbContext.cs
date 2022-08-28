@@ -5,9 +5,9 @@ using Thread = Eskisehirspor.Domain.Entities.Thread;
 
 namespace Eskisehirspor.Application.Common.Interfaces
 {
-    public interface IContactDbContext
+    public interface IForumDbContext
     {
-        DbSet<User> User { get; set; }
+        DbSet<User> Users { get; set; }
         DbSet<UserEmailVerification> UserEmailVerifications { get; set; }
         DbSet<Topic> Topics { get; set; }
         DbSet<Tag> Tags { get; set; }
