@@ -4,9 +4,12 @@ namespace Eskisehirspor.Domain.Entities
 {
     public class Topic : AuditableEntity
     {
+        public const int SUBJECT_MIN_LENGTH = 1;
+        public const int SUBJECT_MAX_LENGTH = 60;
+
         public Topic(string subject, List<Tag> tags)
         {
-            ThrowExceptionIfTagsNullOrEmpty(tags);
+            SetTag(tags);
             SetSubject(subject);
         }
         public string Subject { get; private set; }
@@ -15,14 +18,7 @@ namespace Eskisehirspor.Domain.Entities
 
         public void SetTag(List<Tag> tags)
         {
-            ThrowExceptionIfTagsNullOrEmpty(tags);
-        }
-        private static void ThrowExceptionIfTagsNullOrEmpty(List<Tag> tags)
-        {
-            if (tags == null || tags.Any())
-            {
-                throw new Exception();
-            }
+            Tags = tags;
         }
         private void SetSubject(string subject)
         {
@@ -35,7 +31,10 @@ namespace Eskisehirspor.Domain.Entities
         }
         private bool IsValidSubject(string subject)
         {
-            //TODO: subject kuralları yazılmalı
+            if (subject.Length < SUBJECT_MIN_LENGTH || subject.Length > SUBJECT_MAX_LENGTH)
+            {
+                return false;
+            }
             return true;
         }
     }

@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Eskisehirspor.Domain\Eskisehirspor.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Topic\" />
+  </ItemGroup>
+
 </Project>
