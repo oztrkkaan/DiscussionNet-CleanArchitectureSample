@@ -2,7 +2,7 @@
 
 namespace Eskisehirspor.Application.UseCases.User.CreateUser
 {
-    internal class CreateUserValidator : AbstractValidator<CreateUserCommand>
+    public class CreateUserValidator : AbstractValidator<CreateUserCommand>
     {
         public CreateUserValidator()
         {

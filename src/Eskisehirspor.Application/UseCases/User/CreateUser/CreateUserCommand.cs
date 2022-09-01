@@ -29,7 +29,7 @@ namespace Eskisehirspor.Application.UseCases.User.CreateUser
 
             var newUserResult = await _context.Users.AddAsync(newUser);
             ArgumentNullException.ThrowIfNull(newUserResult);
-
+            await _context.SaveChangesAsync(cancellationToken);
             return new CreateUserResponse
             {
                 IsSuccess = true

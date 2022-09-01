@@ -12,7 +12,7 @@ namespace Eskisehirspor.Domain.Entities
     {
         public const int USERNAME_MAX_LENGTH = 16;
         public const int USERNAME_MIN_LENGTH = 3;
-        public const string USERNAME_REGEX = @"^@?(\w){{0},{1}}$";
+        public const string USERNAME_REGEX = @"^(?=.{3,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
 
         public const int DISPLAYNAME_MAX_LENGTH = 30;
         public const int DISPLAYNAME_MIN_LENGTH = 1;
@@ -58,8 +58,6 @@ namespace Eskisehirspor.Domain.Entities
             Banned
         }
         public User() { }
-
-
         public void SetDisplayName(string displayName)
         {
             if (!IsValidDisplayName(displayName))
@@ -78,8 +76,7 @@ namespace Eskisehirspor.Domain.Entities
         }
         public static bool IsValidUsername(string username)
         {
-            var usernameRegex = string.Format(USERNAME_REGEX, USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH);
-            var regex = new Regex(usernameRegex);
+            var regex = new Regex(USERNAME_REGEX);
 
             return regex.IsMatch(username);
         }
@@ -98,20 +95,19 @@ namespace Eskisehirspor.Domain.Entities
         }
         public static bool IsValidPassword(string password, string passwordConfirm)
         {
-            if (password != passwordConfirm)
+            if (password != passwordConfirm || password.Length < PASSWORD_MIN_LENGTH)
             {
-                throw new Exception();
-            }
-            if (password.Length < PASSWORD_MIN_LENGTH)
-            {
-                throw new Exception();
+                return false;
             }
             return true;
         }
-        private (byte[] passwordHash, byte[] passwordSalt) CreatePasswordHash(string password)
+        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            using var hmac = new System.Security.Cryptography.HMACSHA512();
-            return (hmac.Key, hmac.ComputeHash(Encoding.UTF8.GetBytes(password)));
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+            }
         }
         public static bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
@@ -126,6 +122,7 @@ namespace Eskisehirspor.Domain.Entities
                     }
                 }
             }
+
             return true;
         }
         public void SetEmail(string email)
@@ -157,13 +154,24 @@ namespace Eskisehirspor.Domain.Entities
                 throw new Exception();
             }
 
-            var cryptedPassword = CreatePasswordHash(password);
-            PasswordHash = cryptedPassword.passwordHash;
-            PasswordSalt = cryptedPassword.passwordSalt;
+            byte[] passwordHash, passwordSalt;
+            CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
         }
         public void SetAuthorStatus(AuthorStatuses authorStatus)
         {
             AuthorStatus = authorStatus;
+
+            var roleList = Roles?.Split(',').ToList();
+            roleList ??= new List<string>();
+            if (roleList.Any())
+            {
+                roleList = roleList.Where(m => m != AuthorStatuses.Author.ToString() || m != AuthorStatuses.Newbie.ToString() || m != AuthorStatuses.Banned.ToString()).ToList();
+            }
+
+            roleList.Add(authorStatus.ToString());
+            Roles = string.Join(',', roleList);
         }
     }
 }
