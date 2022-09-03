@@ -19,7 +19,7 @@ namespace Eskisehirspor.Domain.Entities
         public bool IsExpired => ExpirationDate > DateTime.Now;
         private void SetGuid()
         {
-            Guid = new Guid();
+            Guid = Guid.NewGuid();
         }
         public void SetExpirationDate()
         {
