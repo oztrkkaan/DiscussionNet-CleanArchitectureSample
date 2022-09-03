@@ -23,7 +23,7 @@ namespace Eskisehirspor.Domain.Entities
         }
         public void SetExpirationDate()
         {
-            ExpirationDate = DateTime.Now.AddDays(EXPIRATION_DAYS).ToUniversalTime();
+            ExpirationDate = DateTime.Now.AddDays(EXPIRATION_DAYS);
         }
         public void SetAsVerified()
         {

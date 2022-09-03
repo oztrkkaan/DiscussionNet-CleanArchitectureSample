@@ -11,11 +11,11 @@
 
         public void SetCreationDate()
         {
-            CreationDate = DateTime.Now.ToUniversalTime();
+            CreationDate = DateTime.Now;
         }
         public void SetModifiedDate()
         {
-            ModifiedDate = DateTime.Now.ToUniversalTime();
+            ModifiedDate = DateTime.Now;
         }
     }
 }

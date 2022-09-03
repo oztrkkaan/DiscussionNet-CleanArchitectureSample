@@ -38,7 +38,7 @@ namespace Eskisehirspor.Domain.Entities
         public void SoftDelete()
         {
             IsDeleted = true;
-            DeletionDate = DateTime.Now.ToUniversalTime();
+            DeletionDate = DateTime.Now;
         }
         public void UpdateContent(string newContent)
         {
