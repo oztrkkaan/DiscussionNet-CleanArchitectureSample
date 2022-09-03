@@ -1,20 +1,29 @@
 ﻿using Eskisehirspor.Domain.Common;
+using Eskisehirspor.Domain.Interfaces;
 
 namespace Eskisehirspor.Domain.Entities
 {
-    public class Topic : AuditableEntity
+    public class Topic : AuditableEntity, ISoftDelete
     {
         public const int SUBJECT_MIN_LENGTH = 1;
         public const int SUBJECT_MAX_LENGTH = 60;
 
-        public Topic(string subject, List<Tag> tags)
+        public Topic(string subject, List<Tag> tags = null)
         {
             SetTag(tags);
             SetSubject(subject);
         }
+        public Topic() { }
         public string Subject { get; private set; }
         public string UrlName => Subject;
-        public List<Tag> Tags { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime? DeletionDate { get; private set; }
+
+        public ICollection<Tag> Tags { get; private set; }
+        public ICollection<Thread> Threads { get; private set; }
+
+
+
 
         public void SetTag(List<Tag> tags)
         {
@@ -36,6 +45,12 @@ namespace Eskisehirspor.Domain.Entities
                 return false;
             }
             return true;
+        }
+
+        public void SoftDelete()
+        {
+            IsDeleted = true;
+            DeletionDate = DateTime.Now;
         }
     }
 }
