@@ -1,4 +1,6 @@
 ﻿using Eskisehirspor.Application.Common.Interfaces;
+using Eskisehirspor.Application.UseCases.Email.EmailVerification;
+using Eskisehirspor.Application.UseCases.Email.RegistrationEmail.Publisher;
 using MediatR;
 
 namespace Eskisehirspor.Application.UseCases.User.CreateUser
@@ -15,9 +17,11 @@ namespace Eskisehirspor.Application.UseCases.User.CreateUser
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
     {
         IForumDbContext _context;
-        public CreateUserCommandHandler(IForumDbContext context)
+        IMediator _mediator;
+        public CreateUserCommandHandler(IForumDbContext context, IMediator mediator)
         {
             _context = context;
+            _mediator = mediator;
         }
 
         public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
@@ -30,6 +34,9 @@ namespace Eskisehirspor.Application.UseCases.User.CreateUser
             var newUserResult = await _context.Users.AddAsync(newUser);
             ArgumentNullException.ThrowIfNull(newUserResult);
             await _context.SaveChangesAsync(cancellationToken);
+
+            await _mediator.Publish(new CreateUserEmailVerificationEvent { UserId = newUser.Id }, cancellationToken);
+
             return new CreateUserResponse
             {
                 IsSuccess = true
