@@ -52,7 +52,6 @@ namespace Eskisehirspor.Persistence.Configurations
 
             builder.Property(m => m.IsEmailVerified)
                 .IsRequired();
-
         }
     }
 }

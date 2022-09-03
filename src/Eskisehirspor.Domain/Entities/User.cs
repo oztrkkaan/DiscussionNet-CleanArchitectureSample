@@ -33,12 +33,16 @@ namespace Eskisehirspor.Domain.Entities
             SetEmail(email);
             SetAuthorStatus(AuthorStatuses.Newbie);
         }
+        public User(int userId)
+        {
+            Id = userId;
+        }
         public string Username { get; private set; }
         public string DisplayName { get; private set; }
         public byte[] PasswordHash { get; private set; }
         public byte[] PasswordSalt { get; private set; }
         public string Email { get; private set; }
-        public string? Location { get; private set; }
+        public string Location { get; private set; }
         public char TimeOffset { get; private set; }
         public byte TimeOffsetHour { get; private set; }
         public string Signature { get; private set; }
@@ -47,6 +51,9 @@ namespace Eskisehirspor.Domain.Entities
         public bool IsEmailVerified { get; set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletionDate { get; private set; }
+        public ICollection<UserEmailVerification> EmailVerifications { get; set; }
+        public UserEmailVerification LastEmailVerification => EmailVerifications.OrderByDescending(m => m.CreationDate).FirstOrDefault();
+        public ICollection<Thread> Threads { get; private set; }
 
         public enum AuthorStatuses
         {

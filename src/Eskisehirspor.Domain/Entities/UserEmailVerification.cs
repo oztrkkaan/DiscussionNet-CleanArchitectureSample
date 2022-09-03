@@ -10,12 +10,13 @@ namespace Eskisehirspor.Domain.Entities
             User = user;
             SetGuid();
         }
+        public UserEmailVerification() { }
         public Guid Guid { get; private set; }
         public DateTime ExpirationDate { get; private set; }
         public bool IsValid { get; private set; }
         public DateTime? ValidationDate { get; private set; }
         public User User { get; private set; }
-
+        public bool IsExpired => ExpirationDate > DateTime.Now;
         private void SetGuid()
         {
             Guid = new Guid();
@@ -23,6 +24,10 @@ namespace Eskisehirspor.Domain.Entities
         public void SetExpirationDate()
         {
             ExpirationDate = DateTime.Now.AddDays(EXPIRATION_DAYS).ToUniversalTime();
+        }
+        public void SetAsVerified()
+        {
+            IsValid = true;
         }
     }
 }
