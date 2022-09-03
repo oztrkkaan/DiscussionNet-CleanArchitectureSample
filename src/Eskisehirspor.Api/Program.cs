@@ -2,6 +2,7 @@ using Eskisehirspor.Application;
 using Eskisehirspor.Infrastructure;
 using Eskisehirspor.Infrastructure.Authentication.Jwt;
 using Eskisehirspor.Persistence;
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -17,7 +18,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddPersistenceLayer(builder.Configuration);
+
 AddJwtService(builder.Services, builder.Configuration);
+AddMassTransit(builder.Services);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +33,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -37,7 +42,7 @@ app.Run();
 
 void AddJwtService(IServiceCollection services, IConfiguration configuration)
 {
-    var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
+    var tokenOptions = configuration.GetSection("Jwt:TokenOptions").Get<TokenOptions>();
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       .AddJwtBearer(options =>
       {
@@ -53,4 +58,11 @@ void AddJwtService(IServiceCollection services, IConfiguration configuration)
               LifetimeValidator = (notBefore, expires, tokenToValidate, tokenValidationParameters) => expires != null && expires > DateTime.UtcNow
           };
       });
+}
+void AddMassTransit(IServiceCollection services)
+{
+    services.AddMassTransit(x =>
+    {
+        x.UsingRabbitMq();
+    });
 }

@@ -16,14 +16,12 @@
     <PackageReference Include="MediatR" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" />
     <PackageReference Include="RabbitMQ.Client" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" />
+    <PackageReference Include="MassTransit" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Eskisehirspor.Domain\Eskisehirspor.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UseCases\Topic\" />
   </ItemGroup>
 
 </Project>
