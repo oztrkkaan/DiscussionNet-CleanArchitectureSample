@@ -5,11 +5,14 @@ namespace Eskisehirspor.Domain.Entities
 {
     public class Thread : AuditableEntity, ISoftDelete
     {
-        public Thread(string content, Topic topic)
+        private const int CONTENT_MIN_LENGTH = 1;
+        public Thread(string content, Topic topic, User user)
         {
             SetContent(content);
             SetTopic(topic);
+            SetUser(user);
         }
+        public Thread() {}
 
         public string Content { get; private set; }
         public Topic Topic { get; private set; }
@@ -21,9 +24,6 @@ namespace Eskisehirspor.Domain.Entities
         public ThreadStatus Status { get; set; }
         public int? ParentThreadId { get; set; }
         public bool IsComment => ParentThreadId == null;
-
-
-
         public enum ThreadStatus
         {
             Hidden,
@@ -31,7 +31,10 @@ namespace Eskisehirspor.Domain.Entities
             DeletedByAdministrator,
             Draft,
         }
-
+        public void SetUser(User user)
+        {
+            User = user;
+        }
         public void SoftDelete()
         {
             IsDeleted = true;
