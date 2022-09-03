@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Eskisehirspor.Domain.Entities;
+using Eskisehirspor.Application.Common.Identity;
 
 namespace Eskisehirspor.Application.UseCases.Authentication.SignIn
 {
@@ -7,7 +7,7 @@ namespace Eskisehirspor.Application.UseCases.Authentication.SignIn
     {
         public SignInCommandMapper()
         {
-            CreateMap<Domain.Entities.User, TokenUser>();
+            CreateMap<Domain.Entities.User, AuthenticatedUser>().ForMember(d => d.Roles, opt => opt.MapFrom(s => s.Roles.Split(',', StringSplitOptions.None)));
         }
     }
 }

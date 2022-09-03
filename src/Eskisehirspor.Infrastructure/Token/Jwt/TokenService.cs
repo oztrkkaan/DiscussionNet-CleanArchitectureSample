@@ -1,6 +1,6 @@
-﻿using Eskisehirspor.Application.Common.Interfaces;
+﻿using Eskisehirspor.Application.Common.Identity;
+using Eskisehirspor.Application.Common.Interfaces;
 using Eskisehirspor.Application.Common.Security;
-using Eskisehirspor.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -24,7 +24,7 @@ namespace Eskisehirspor.Infrastructure.Authentication.Jwt
             _claimManager = new ClaimManager();
         }
 
-        public Token CreateAccessToken(int expiresInSecond, TokenUser user)
+        public Token CreateAccessToken(int expiresInSecond, AuthenticatedUser authUser)
         {
             Token token = new();
 
@@ -40,7 +40,7 @@ namespace Eskisehirspor.Infrastructure.Authentication.Jwt
                 expires: token.ExpirationDate,
                 notBefore: DateTime.Now, //Token üretildikten ne kadar süre sonra devreye girsin
                 signingCredentials: signingCredentials,
-                claims: _claimManager.GetUserClaims(user));
+                claims: _claimManager.GetUserClaims(authUser));
 
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             token.AccessToken = tokenHandler.WriteToken(securityToken);

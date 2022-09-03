@@ -1,4 +1,4 @@
-﻿using Eskisehirspor.Domain.Entities;
+﻿using Eskisehirspor.Application.Common.Identity;
 using System.Security.Claims;
 
 namespace Eskisehirspor.Infrastructure.Authentication
@@ -10,15 +10,14 @@ namespace Eskisehirspor.Infrastructure.Authentication
             claims.Add(new Claim(claimName, value));
         }
 
-        public ICollection<Claim> GetUserClaims(TokenUser authenticatedUser)
+        public ICollection<Claim> GetUserClaims(AuthenticatedUser authenticatedUser)
         {
             var claims = new List<Claim>();
-
+            SetClaim(claims, nameof(authenticatedUser.Id), authenticatedUser.Id.ToString());
             SetClaim(claims, nameof(authenticatedUser.Username), authenticatedUser.Username);
             SetClaim(claims, nameof(authenticatedUser.Email), authenticatedUser.Email);
             SetClaim(claims, nameof(authenticatedUser.DisplayName), authenticatedUser.DisplayName);
-            SetClaim(claims, nameof(authenticatedUser.ExpirationDate), authenticatedUser.ExpirationDate.ToString());
-            SetClaim(claims, nameof(authenticatedUser.Roles), authenticatedUser.Roles);
+            SetClaim(claims, ClaimTypes.Role, string.Join(',', authenticatedUser.Roles));
 
             return claims;
         }

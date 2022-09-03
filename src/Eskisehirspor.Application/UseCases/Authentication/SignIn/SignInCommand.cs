@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using Eskisehirspor.Application.Common.Identity;
 using Eskisehirspor.Application.Common.Interfaces;
-using Eskisehirspor.Domain.Entities;
+using Eskisehirspor.Application.Common.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,8 +30,8 @@ namespace Eskisehirspor.Application.UseCases.Authentication.SignIn
             var user = await GetUserByUsernameOrEmail(request.UsernameOrEmail);
             VerifyUserPassword(request.Password, user);
 
-            var tokenUser = _mapper.Map<TokenUser>(user);
-            var token = _tokenService.CreateAccessToken(60 * 2, tokenUser);
+            var authUser = _mapper.Map<AuthenticatedUser>(user);
+            var token = _tokenService.CreateAccessToken(60 * 10, authUser);
 
             return new SignInResponse
             {
