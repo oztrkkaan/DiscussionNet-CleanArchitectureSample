@@ -11,6 +11,12 @@ namespace Eskisehirspor.Application.UseCases.Email.EmailVerification
     public class VerifyUserEmailCommandHandler : IRequestHandler<VerifyUserEmailCommand, VerifyUserEmailResponse>
     {
         IForumDbContext _context;
+
+        public VerifyUserEmailCommandHandler(IForumDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<VerifyUserEmailResponse> Handle(VerifyUserEmailCommand request, CancellationToken cancellationToken)
         {
             var emailVerification = _context.UserEmailVerifications.FirstOrDefault(m => m.Guid == request.VerificationGuid);
