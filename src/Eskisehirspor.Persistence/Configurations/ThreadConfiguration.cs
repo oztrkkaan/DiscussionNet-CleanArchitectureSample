@@ -15,6 +15,9 @@ namespace Eskisehirspor.Persistence.Configurations
                 .HasConversion<byte>();
 
             builder.Property(p => p.ParentThreadId);
+            builder.Property(p => p.IpAddress)
+                .IsRequired()
+                .HasMaxLength(39);
 
             builder.HasOne(p => p.Topic).WithMany(p => p.Threads);
             builder.HasOne(p => p.User).WithMany(p => p.Threads);

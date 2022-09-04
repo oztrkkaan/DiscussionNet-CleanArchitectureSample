@@ -6,13 +6,14 @@ namespace Eskisehirspor.Domain.Entities
     public class Thread : AuditableEntity, ISoftDelete
     {
         private const int CONTENT_MIN_LENGTH = 1;
-        public Thread(string content, Topic topic, User user)
+        public Thread(string content, Topic topic, User user, string ipAddress)
         {
             SetContent(content);
             SetTopic(topic);
             SetUser(user);
+            SetIpAddess(ipAddress);
         }
-        public Thread() {}
+        public Thread() { }
 
         public string Content { get; private set; }
         public Topic Topic { get; private set; }
@@ -24,6 +25,7 @@ namespace Eskisehirspor.Domain.Entities
         public ThreadStatus Status { get; set; }
         public int? ParentThreadId { get; set; }
         public bool IsComment => ParentThreadId == null;
+        public string IpAddress { get; private set; }
         public enum ThreadStatus
         {
             Hidden,
@@ -57,12 +59,20 @@ namespace Eskisehirspor.Domain.Entities
 
         private bool IsVerifiedContent(string content)
         {
-            //TODO:  
+            if (content.Length <= CONTENT_MIN_LENGTH)
+            {
+                throw new Exception($"Content minimum length must be longer than {CONTENT_MIN_LENGTH} character.");
+            }
+
             return true;
         }
         private void SetTopic(Topic topic)
         {
             Topic = topic;
+        }
+        private void SetIpAddess(string ipAddress)
+        {
+            IpAddress = ipAddress;
         }
     }
 }
