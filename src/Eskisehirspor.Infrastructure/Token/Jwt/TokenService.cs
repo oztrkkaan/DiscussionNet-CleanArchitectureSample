@@ -1,13 +1,14 @@
 ﻿using Eskisehirspor.Application.Common.Identity;
 using Eskisehirspor.Application.Common.Interfaces;
 using Eskisehirspor.Application.Common.Security;
+using Eskisehirspor.Infrastructure.Token;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Eskisehirspor.Infrastructure.Authentication.Jwt
+namespace Eskisehirspor.Infrastructure.Token.Jwt
 {
     public class TokenService : ITokenService
     {

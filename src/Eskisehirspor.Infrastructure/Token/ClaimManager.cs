@@ -1,7 +1,7 @@
 ﻿using Eskisehirspor.Application.Common.Identity;
 using System.Security.Claims;
 
-namespace Eskisehirspor.Infrastructure.Authentication
+namespace Eskisehirspor.Infrastructure.Token
 {
     public class ClaimManager
     {

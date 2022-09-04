@@ -1,6 +1,6 @@
 using Eskisehirspor.Application;
 using Eskisehirspor.Infrastructure;
-using Eskisehirspor.Infrastructure.Authentication.Jwt;
+using Eskisehirspor.Infrastructure.Token.Jwt;
 using Eskisehirspor.Persistence;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

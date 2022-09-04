@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Eskisehirspor.Infrastructure.Authentication.Jwt
+namespace Eskisehirspor.Infrastructure.Token.Jwt
 {
     public class TokenOptions
     {
