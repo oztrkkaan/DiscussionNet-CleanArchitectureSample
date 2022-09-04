@@ -1,5 +1,6 @@
 ﻿using Eskisehirspor.Application.Common.Interfaces;
-using Eskisehirspor.Infrastructure.Authentication.Jwt;
+using Eskisehirspor.Infrastructure.Email;
+using Eskisehirspor.Infrastructure.Token.Jwt;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Eskisehirspor.Infrastructure
@@ -9,6 +10,7 @@ namespace Eskisehirspor.Infrastructure
         public static void AddInfrastructureLayer(this IServiceCollection services)
         {
             services.AddTransient<ITokenService,TokenService>();
+            services.AddTransient<IMailService, MailService>();
         }
     }
 }
