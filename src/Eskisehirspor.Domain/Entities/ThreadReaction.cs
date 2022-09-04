@@ -40,7 +40,7 @@ namespace Eskisehirspor.Domain.Entities
         public enum Reactions
         {
             Like = 1,
-            Unlike = -1
+            Unlike = 2
         }
     }
 }
