@@ -1,5 +1,6 @@
 ﻿using Eskisehirspor.Application.Common.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace Eskisehirspor.Application.UseCases.Thread.CreateThread
 {
@@ -13,11 +14,14 @@ namespace Eskisehirspor.Application.UseCases.Thread.CreateThread
     {
         IForumDbContext _context;
         IIdentityManager _identityManager;
-
-        public CreateThreadCommandHandler(IForumDbContext context, IIdentityManager identityManager)
+        IHttpContextAccessor _httpContextAccessor;
+        string _ipAddress;
+        public CreateThreadCommandHandler(IForumDbContext context, IIdentityManager identityManager, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _identityManager = identityManager;
+            _httpContextAccessor = httpContextAccessor;
+            _ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
         }
 
         public async Task<CreateThreadResponse> Handle(CreateThreadCommand request, CancellationToken cancellationToken)
@@ -25,8 +29,7 @@ namespace Eskisehirspor.Application.UseCases.Thread.CreateThread
 
             var user = GetUserById(_identityManager.User.Id);
             var topic = GetTopicById(request.TopicId);
-
-            var thread = new Domain.Entities.Thread(request.Content, topic, user);
+            var thread = new Domain.Entities.Thread(request.Content, topic, user, _ipAddress);
 
             await _context.Threads.AddAsync(thread);
             await _context.SaveChangesAsync(cancellationToken);
