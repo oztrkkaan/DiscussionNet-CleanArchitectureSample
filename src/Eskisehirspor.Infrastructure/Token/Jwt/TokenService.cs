@@ -1,7 +1,5 @@
 ﻿using Eskisehirspor.Application.Common.Identity;
 using Eskisehirspor.Application.Common.Interfaces;
-using Eskisehirspor.Application.Common.Security;
-using Eskisehirspor.Infrastructure.Token;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -25,9 +23,9 @@ namespace Eskisehirspor.Infrastructure.Token.Jwt
             _claimManager = new ClaimManager();
         }
 
-        public Token CreateAccessToken(int expiresInSecond, AuthenticatedUser authUser)
+        public Application.Common.Security.Token CreateAccessToken(int expiresInSecond, AuthenticatedUser authUser)
         {
-            Token token = new();
+            Application.Common.Security.Token token = new();
 
             SymmetricSecurityKey securityKey = new(Encoding.UTF8.GetBytes(_tokenOptions.SecurityKey));
 
