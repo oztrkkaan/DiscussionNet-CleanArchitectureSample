@@ -28,7 +28,7 @@ namespace Eskisehirspor.Application.UseCases.Email.EmailVerification
             await _context.SaveChangesAsync(cancellationToken);
 
 
-            await _mediator.Publish(new SendRegistrationEmailEvent
+            await _mediator.Publish(new SendRegistrationEmailPublisher
             {
                 Email = user.Email,
                 DisplayName = user.DisplayName,

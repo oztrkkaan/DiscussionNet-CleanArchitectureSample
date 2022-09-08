@@ -10,7 +10,7 @@ namespace Eskisehirspor.Application.UseCases.Email.EmailVerification
 
     public class VerifyUserEmailCommandHandler : IRequestHandler<VerifyUserEmailCommand, VerifyUserEmailResponse>
     {
-        IForumDbContext _context;
+        private readonly IForumDbContext _context;
 
         public VerifyUserEmailCommandHandler(IForumDbContext context)
         {
@@ -21,8 +21,8 @@ namespace Eskisehirspor.Application.UseCases.Email.EmailVerification
         {
             var emailVerification = _context.UserEmailVerifications.FirstOrDefault(m => m.Guid == request.VerificationGuid);
             ArgumentNullException.ThrowIfNull(emailVerification);
-            
-            if(emailVerification.IsValid)
+
+            if (emailVerification.IsValid)
             {
                 throw new Exception("E-posta adresi zaten doğrulandı.");
             }
