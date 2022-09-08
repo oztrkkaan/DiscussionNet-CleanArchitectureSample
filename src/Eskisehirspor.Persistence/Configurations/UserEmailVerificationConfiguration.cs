@@ -8,6 +8,8 @@ namespace Eskisehirspor.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<UserEmailVerification> builder)
         {
+            AuditableEntityConfiguration<UserEmailVerification>.SetProperties(builder);
+
             builder.Property(m => m.Guid)
                 .IsRequired()
                 .HasMaxLength(36);
