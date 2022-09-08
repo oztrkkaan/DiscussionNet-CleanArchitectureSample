@@ -7,20 +7,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CA5752DA-004
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eskisehirspor.Web", "src\Eskisehirspor.Web\Eskisehirspor.Web.csproj", "{06A8BBDD-1DD4-4B56-BF67-7DF881B30C65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eskisehirspor.Api", "src\Eskisehirspor.Api\Eskisehirspor.Api.csproj", "{01F69452-F74A-46B4-AC6D-D331FE11742A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eskisehirspor.Api", "src\Eskisehirspor.Api\Eskisehirspor.Api.csproj", "{01F69452-F74A-46B4-AC6D-D331FE11742A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eskisehirspor.Domain", "src\Eskisehirspor.Domain\Eskisehirspor.Domain.csproj", "{1B535586-4EBD-4B8C-B0B3-0B626FE3580E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eskisehirspor.Domain", "src\Eskisehirspor.Domain\Eskisehirspor.Domain.csproj", "{1B535586-4EBD-4B8C-B0B3-0B626FE3580E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eskisehirspor.Infrastructure", "src\Eskisehirspor.Infrastructure\Eskisehirspor.Infrastructure.csproj", "{0C72437F-8740-47B1-9D1B-3CBB32EFD70E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eskisehirspor.Infrastructure", "src\Eskisehirspor.Infrastructure\Eskisehirspor.Infrastructure.csproj", "{0C72437F-8740-47B1-9D1B-3CBB32EFD70E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eskisehirspor.Persistence", "src\Eskisehirspor.Persistence\Eskisehirspor.Persistence.csproj", "{9606B75F-50D8-40A9-990E-DC50F9922863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eskisehirspor.Persistence", "src\Eskisehirspor.Persistence\Eskisehirspor.Persistence.csproj", "{9606B75F-50D8-40A9-990E-DC50F9922863}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eskisehirspor.Application", "src\Eskisehirspor.Application\Eskisehirspor.Application.csproj", "{83086D0A-E225-4A39-B7E6-0692D666062E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eskisehirspor.Application", "src\Eskisehirspor.Application\Eskisehirspor.Application.csproj", "{83086D0A-E225-4A39-B7E6-0692D666062E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16E7ECE8-8DD1-42E9-B32F-B20A4F08327E}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eskisehirspor.Consumer", "src\Eskisehirspor.Consumer\Eskisehirspor.Consumer.csproj", "{A82F472A-0031-4762-93EC-898E90248442}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,6 +54,10 @@ Global
 		{83086D0A-E225-4A39-B7E6-0692D666062E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83086D0A-E225-4A39-B7E6-0692D666062E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83086D0A-E225-4A39-B7E6-0692D666062E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A82F472A-0031-4762-93EC-898E90248442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A82F472A-0031-4762-93EC-898E90248442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A82F472A-0031-4762-93EC-898E90248442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A82F472A-0031-4762-93EC-898E90248442}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{0C72437F-8740-47B1-9D1B-3CBB32EFD70E} = {CA5752DA-0044-4EEE-B95E-F17D2F493F37}
 		{9606B75F-50D8-40A9-990E-DC50F9922863} = {CA5752DA-0044-4EEE-B95E-F17D2F493F37}
 		{83086D0A-E225-4A39-B7E6-0692D666062E} = {CA5752DA-0044-4EEE-B95E-F17D2F493F37}
+		{A82F472A-0031-4762-93EC-898E90248442} = {CA5752DA-0044-4EEE-B95E-F17D2F493F37}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AF01CC4C-237A-427F-B840-156864CDF840}
