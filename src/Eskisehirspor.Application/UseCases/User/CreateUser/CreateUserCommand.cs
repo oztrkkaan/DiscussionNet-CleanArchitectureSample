@@ -16,8 +16,8 @@ namespace Eskisehirspor.Application.UseCases.User.CreateUser
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
     {
-        IForumDbContext _context;
-        IMediator _mediator;
+        private readonly IForumDbContext _context;
+        private readonly IMediator _mediator;
         public CreateUserCommandHandler(IForumDbContext context, IMediator mediator)
         {
             _context = context;
@@ -31,8 +31,9 @@ namespace Eskisehirspor.Application.UseCases.User.CreateUser
 
             Domain.Entities.User newUser = new(request.Username, request.DisplayName, request.Password, request.PasswordConfirm, request.Email);
 
-            var newUserResult = await _context.Users.AddAsync(newUser);
+            var newUserResult = await _context.Users.AddAsync(newUser, cancellationToken);
             ArgumentNullException.ThrowIfNull(newUserResult);
+
             await _context.SaveChangesAsync(cancellationToken);
 
             await _mediator.Publish(new CreateUserEmailVerificationEvent { UserId = newUser.Id }, cancellationToken);
