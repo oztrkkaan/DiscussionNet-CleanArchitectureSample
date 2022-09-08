@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Eskisehirspor.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/topic")]
     [ApiController]
     public class TopicController : DefaultApiControllerBase
     {
