@@ -12,7 +12,7 @@ namespace Eskisehirspor.Application.Common.Interfaces
         DbSet<Topic> Topics { get; set; }
         //DbSet<Tag> Tags { get; set; }
         DbSet<Thread> Threads { get; set; }
-        //DbSet<ThreadReaction> ThreadReactions { get; set; }
+        DbSet<ThreadReaction> ThreadReactions { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         Task<IDbContextTransaction> BeginTransactionAsync();
     }

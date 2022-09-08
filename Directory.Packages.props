@@ -1,10 +1,11 @@
 <Project>
-  
   <ItemGroup>
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8"/>
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8"/>
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
@@ -13,9 +14,8 @@
     <PackageVersion Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageVersion Include="MassTransit" Version="8.0.6" />
     <PackageVersion Include="MassTransit.RabbitMQ" Version="8.0.6" />
-  </ItemGroup>
-  
-  <ItemGroup>
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageVersion Include="Guard.net" Version="3.0.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageVersion Include="AutoMapper" Version="11.0.1" />
     <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
@@ -25,5 +25,4 @@
     <PackageVersion Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageVersion Include="RabbitMQ.Client" Version="6.4.0" />
   </ItemGroup>
-  
 </Project>

@@ -18,6 +18,7 @@
     <PackageReference Include="RabbitMQ.Client" />
     <PackageReference Include="Microsoft.AspNetCore.Http" />
     <PackageReference Include="MassTransit" />
+    <PackageReference Include="Guard.Net" />
   </ItemGroup>
 
   <ItemGroup>
