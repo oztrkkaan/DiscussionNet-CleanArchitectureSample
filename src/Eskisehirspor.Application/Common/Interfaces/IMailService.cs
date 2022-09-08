@@ -5,7 +5,9 @@ namespace Eskisehirspor.Application.Common.Interfaces
 {
     public interface IMailService
     {
-        List<MailMessage> Create(string subject, string body, List<string> emailsToSend, MailName mailName, Attachment attachment = null);
+        List<MailMessage> CreateMailMessage(string subject, string body, List<string> emailsToSend, MailName mailName, Attachment attachment = null);
+        Task SendMailAsync(IList<MailMessage> mailMessages, EmailCredential emailCredential);
+        Task SendMailAsync(string subject, string body, List<string> emailsToSend, MailName mailName, Attachment attachment = null);
 
     }
 }
