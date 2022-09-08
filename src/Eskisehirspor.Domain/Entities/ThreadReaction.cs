@@ -11,9 +11,10 @@ namespace Eskisehirspor.Domain.Entities
             SetReaction(reaction, false);
             SetUser(reactedBy);
         }
+        public ThreadReaction() { }
         public Thread Thread { get; private set; }
-        public User ReactedBy { get; set; }
-        public Reactions Reaction { get; set; }
+        public User ReactedBy { get; private set; }
+        public Reactions Reaction { get; private set; }
         public bool IsDeleted { get; private set; }
         public DateTime? DeletionDate { get; private set; }
         public void SetReaction(Reactions reaction, bool isModified)

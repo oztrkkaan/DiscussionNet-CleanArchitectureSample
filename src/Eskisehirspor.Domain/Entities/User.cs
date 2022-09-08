@@ -1,6 +1,5 @@
 ﻿using Eskisehirspor.Domain.Common;
 using Eskisehirspor.Domain.Interfaces;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
 using System.Text;
@@ -53,7 +52,8 @@ namespace Eskisehirspor.Domain.Entities
         public DateTime? DeletionDate { get; private set; }
         public ICollection<UserEmailVerification> EmailVerifications { get; set; }
         public UserEmailVerification LastEmailVerification => EmailVerifications.OrderByDescending(m => m.CreationDate).FirstOrDefault();
-        public ICollection<Thread> Threads { get; private set; }
+        public ICollection<Thread> Threads { get;  set; }
+        public ICollection<ThreadReaction> Reactions { get;  set; }
 
         public enum AuthorStatuses
         {

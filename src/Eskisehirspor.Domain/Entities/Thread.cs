@@ -26,6 +26,8 @@ namespace Eskisehirspor.Domain.Entities
         public int? ParentThreadId { get; set; }
         public bool IsComment => ParentThreadId == null;
         public string IpAddress { get; private set; }
+        public ICollection<ThreadReaction> Reactions { get; set; }
+
         public enum ThreadStatus
         {
             Hidden,

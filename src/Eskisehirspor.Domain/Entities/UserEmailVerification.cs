@@ -9,6 +9,7 @@ namespace Eskisehirspor.Domain.Entities
         {
             User = user;
             SetGuid();
+            SetExpirationDate();
         }
         public UserEmailVerification() { }
         public Guid Guid { get; private set; }
