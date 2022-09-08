@@ -7,6 +7,9 @@ namespace Eskisehirspor.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Domain.Entities.Thread> builder)
         {
+            AuditableEntityConfiguration<Domain.Entities.Thread>.SetProperties(builder);
+            SoftDeleteConfiguration<Domain.Entities.Thread>.SetProperties(builder);
+
             builder.Property(m => m.Content)
                  .IsRequired();
 
