@@ -23,4 +23,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Eskisehirspor.Application\Eskisehirspor.Application.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MassTransit\Hangfire\" />
+  </ItemGroup>
 </Project>

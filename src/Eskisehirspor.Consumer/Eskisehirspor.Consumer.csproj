@@ -8,10 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HangFire" />
+    <PackageReference Include="HangFire.Core" />
+    <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" />
+    <PackageReference Include="Hangfire.SqlServer" />
+
+
     <PackageReference Include="MassTransit" />
     <PackageReference Include="MassTransit.RabbitMQ" />
+    <PackageReference Include="MassTransit.HangFire" />
     <PackageReference Include="Swashbuckle.AspNetCore" />
-
   </ItemGroup>
 
   <ItemGroup>

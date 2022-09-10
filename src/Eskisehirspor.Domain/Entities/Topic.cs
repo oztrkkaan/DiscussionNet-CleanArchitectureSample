@@ -21,6 +21,7 @@ namespace Eskisehirspor.Domain.Entities
 
         public ICollection<Tag> Tags { get; private set; }
         public ICollection<Thread> Threads { get; private set; }
+        public int ThreadCount => Threads.Count();
 
 
 

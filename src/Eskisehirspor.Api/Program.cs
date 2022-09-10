@@ -21,7 +21,6 @@ builder.Services.AddPersistenceLayer(builder.Configuration);
 
 AddJwtService(builder.Services, builder.Configuration);
 AddMassTransit(builder.Services);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

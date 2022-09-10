@@ -18,6 +18,8 @@
     <PackageReference Include="RabbitMQ.Client" />
     <PackageReference Include="Microsoft.AspNetCore.Http" />
     <PackageReference Include="MassTransit" />
+    <PackageReference Include="MassTransit.Hangfire" />
+
     <PackageReference Include="Guard.Net" />
   </ItemGroup>
 
