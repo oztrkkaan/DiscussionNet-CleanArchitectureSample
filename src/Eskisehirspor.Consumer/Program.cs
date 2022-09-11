@@ -1,16 +1,11 @@
 using Eskisehirspor.Application;
 using Eskisehirspor.Application.Common.Hangfire;
 using Eskisehirspor.Application.UseCases.Email.RegistrationEmail.Consumer;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Consumer;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Publisher;
+using Eskisehirspor.Application.UseCases.Feed.RefreshLatestTopics.Consumer;
 using Eskisehirspor.Application.UseCases.ThreadReactions.CreateOrUpdate.Consumer;
 using Eskisehirspor.Infrastructure;
 using Eskisehirspor.Persistence;
-using Hangfire;
 using MassTransit;
-using MediatR;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
@@ -53,10 +48,9 @@ void ConsumerDefines(IServiceCollection services)
 
         x.AddConsumer<CreateOrUpdateThreadReactionConsumer>()
            .Endpoint(cfg => cfg.Name = "reactionservice.reaction");
-
-        x.AddConsumer<GetLatestTopicsConsumer>()
-        .Endpoint(cfg => cfg.Name = "jobs.get-latest-topics");
-
+       
+        x.AddConsumer<RefreshLatestTopicsConsumer>()
+         .Endpoint(cfg => cfg.Name = "jobs.refresh-latest-topics");
         x.UsingRabbitMq((context, cfg) =>
         {
             cfg.ConfigureEndpoints(context);

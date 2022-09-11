@@ -10,6 +10,7 @@ namespace Eskisehirspor.Domain.Entities
     {
         public string Subject { get; set; }
         public int ThreadCount { get; set; }
-        public string Url { get; set; }
+        public int Url { get; set; }
+        public DateTime LastThreadCreationDate { get; set; }
     }
 }

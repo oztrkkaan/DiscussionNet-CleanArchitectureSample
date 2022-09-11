@@ -1,6 +1,5 @@
 ﻿using Eskisehirspor.Application.Common.Hangfire;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Publisher;
+using Eskisehirspor.Application.UseCases.Feed.RefreshLatestTopics.Publisher;
 using Hangfire;
 using Hangfire.SqlServer;
 using HangfireBasicAuthenticationFilter;
@@ -59,7 +58,7 @@ namespace Eskisehirspor.Infrastructure.Hangfire
 
         public void InitializeJobs()
         {
-            RecurringJob.AddOrUpdate<IMediator>(nameof(GetLatestTopicsPublisher), m => m.Publish(new GetLatestTopicsPublisher { }, default), Cron.Minutely());
+            RecurringJob.AddOrUpdate<IMediator>(nameof(RefreshLatestTopicsPublisher), m => m.Publish(new RefreshLatestTopicsPublisher { }, default), Cron.Minutely());
         }
     }
 }

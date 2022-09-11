@@ -18,8 +18,6 @@ namespace Eskisehirspor.Infrastructure.Caching.Redis
 
         public T Get<T>(string key)
         {
-            try
-            {
                 if (_redisCache.GetString(key) != null)
                 {
                     return _redisCache.GetString(key).DeserializeJSON<T>();
@@ -28,12 +26,6 @@ namespace Eskisehirspor.Infrastructure.Caching.Redis
                 {
                     return default;
                 }
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
            
         }
         public async Task<T> GetAsync<T>(string key, CancellationToken token = default)
