@@ -18,6 +18,10 @@
     <PackageReference Include="MassTransit.RabbitMQ" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" />
     <PackageReference Include="Microsoft.Extensions.Caching.Redis" />
+    <PackageReference Include="HangFire" />
+    <PackageReference Include="HangFire.Core" />
+    <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" />
+    <PackageReference Include="Hangfire.SqlServer" />
   </ItemGroup>
 
   <ItemGroup>

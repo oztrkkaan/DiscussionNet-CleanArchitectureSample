@@ -1,22 +1,28 @@
 using Eskisehirspor.Application;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads.JobConsumer;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Worker;
+using Eskisehirspor.Application.Common.Hangfire;
+using Eskisehirspor.Application.UseCases.Email.RegistrationEmail.Consumer;
+using Eskisehirspor.Application.UseCases.Feed.LatestThreads;
+using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Consumer;
+using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Publisher;
+using Eskisehirspor.Application.UseCases.ThreadReactions.CreateOrUpdate.Consumer;
 using Eskisehirspor.Infrastructure;
 using Eskisehirspor.Persistence;
+using Hangfire;
 using MassTransit;
+using MediatR;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddPersistenceLayer(builder.Configuration);
+
+var hangfireConfiguration = builder.Services.BuildServiceProvider().GetService<IHangfireConfiguration>();
+hangfireConfiguration.Configure(builder.Services);
+
 ConsumerDefines(builder.Services);
 
 var app = builder.Build();
@@ -28,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+hangfireConfiguration.ConfigureDashboard(app);
+hangfireConfiguration.InitializeJobs();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
@@ -36,25 +44,22 @@ app.Run();
 
 void ConsumerDefines(IServiceCollection services)
 {
-
     services.AddMassTransit(x =>
     {
-        //x.SetKebabCaseEndpointNameFormatter();
+        x.SetKebabCaseEndpointNameFormatter();
 
+        x.AddConsumer<SendRegistrationEmailConsumer>()
+            .Endpoint(cfg => cfg.Name = "emailservice.registration");
 
-        //x.AddConsumer<SendRegistrationEmailConsumer>()
-        //    .Endpoint(cfg => cfg.Name = "emailservice.registration");
+        x.AddConsumer<CreateOrUpdateThreadReactionConsumer>()
+           .Endpoint(cfg => cfg.Name = "reactionservice.reaction");
 
-        //x.AddConsumer<CreateOrUpdateThreadReactionConsumer>()
-        //   .Endpoint(cfg => cfg.Name = "reactionservice.reaction");
-        x.AddPublishMessageScheduler();
-        x.AddConsumer<GetLatestTopicsConsumer>();
+        x.AddConsumer<GetLatestTopicsConsumer>()
+        .Endpoint(cfg => cfg.Name = "jobs.get-latest-topics");
+
         x.UsingRabbitMq((context, cfg) =>
         {
-            cfg.UsePublishMessageScheduler();
             cfg.ConfigureEndpoints(context);
         });
-        services.AddHostedService<GetLatestTopicsWorker>();
     });
-
 }

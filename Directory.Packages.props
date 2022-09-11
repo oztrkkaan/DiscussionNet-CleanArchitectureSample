@@ -4,19 +4,23 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8"/>
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8"/>
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
+    
     <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="6.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0" />
+    
     <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    
     <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="6.22.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
-   
+
     <PackageVersion Include="MassTransit" Version="8.0.6" />
     <PackageVersion Include="MassTransit.RabbitMQ" Version="8.0.6" />
     <PackageVersion Include="MassTransit.Hangfire" Version="8.0.6" />
-   
+
     <PackageVersion Include="Hangfire" Version="1.7.31" />
     <PackageVersion Include="Hangfire.Core" Version="1.7.31" />
     <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="1.7.31" />
@@ -24,19 +28,19 @@
     <PackageVersion Include="Hangfire.AspNetCore" Version="1.7.31" />
     <PackageVersion Include="Hangfire.MemoryStorage" Version="1.7.0" />
 
+    <PackageVersion Include="MediatR" Version="10.0.1" />
+    <PackageVersion Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
 
+    <PackageVersion Include="FluentValidation" Version="10.3.6" />
+    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
 
-
+    <PackageVersion Include="AutoMapper" Version="11.0.1" />
+    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
 
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageVersion Include="Guard.net" Version="3.0.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageVersion Include="AutoMapper" Version="11.0.1" />
-    <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-    <PackageVersion Include="FluentValidation" Version="10.3.6" />
-    <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.6" />
-    <PackageVersion Include="MediatR" Version="10.0.1" />
-    <PackageVersion Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageVersion Include="RabbitMQ.Client" Version="6.4.0" />
+  
   </ItemGroup>
 </Project>

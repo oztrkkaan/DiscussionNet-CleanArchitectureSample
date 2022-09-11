@@ -1,36 +1,44 @@
-﻿using Eskisehirspor.Application.Common.Extensions;
-using Eskisehirspor.Infrastructure.Cache.Redis.Interfaces;
+﻿using Eskisehirspor.Application.Common.Caching.Redis;
+using Eskisehirspor.Application.Common.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Text;
-namespace Eskisehirspor.Infrastructure.Cache.Redis
+namespace Eskisehirspor.Infrastructure.Caching.Redis
 {
     public class RedisClient : IRedisClient
     {
         private static readonly object _cacheLockObject = new object();
-        private IDistributedCache redisCache { get; set; }
+        private readonly IDistributedCache _redisCache;
         private TimeSpan DefaultExpirationTimeSpan { get; set; }
 
-        public RedisClient(IDistributedCache redisCache)
+        public RedisClient(IRedisClientProvider redisClientProvider)
         {
             DefaultExpirationTimeSpan = new TimeSpan(0, 0, 5, 0);
-            this.redisCache = redisCache;
+            _redisCache = redisClientProvider.GetDistributedCache();
         }
 
         public T Get<T>(string key)
         {
-            if (redisCache.GetString(key) != null)
+            try
             {
-                return redisCache.GetString(key).DeserializeJSON<T>();
+                if (_redisCache.GetString(key) != null)
+                {
+                    return _redisCache.GetString(key).DeserializeJSON<T>();
+                }
+                else
+                {
+                    return default;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return default;
-            }
-        }
 
+                throw;
+            }
+           
+        }
         public async Task<T> GetAsync<T>(string key, CancellationToken token = default)
         {
-            var response = await redisCache.GetStringAsync(key, token);
+            var response = await _redisCache.GetStringAsync(key, token);
             T item = default;
             if (response != null)
                 item = response.DeserializeJSON<T>();
@@ -39,27 +47,27 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
 
         public void Refresh(string key)
         {
-            redisCache.Refresh(key);
+            _redisCache.Refresh(key);
         }
 
         public Task RefreshAsync(string key, CancellationToken token = default)
         {
-            return redisCache.RefreshAsync(key, token);
+            return _redisCache.RefreshAsync(key, token);
         }
 
         public void Remove(string key)
         {
-            redisCache.Remove(key);
+            _redisCache.Remove(key);
         }
 
         public Task RemoveAsync(string key, CancellationToken token = default)
         {
-            return redisCache.RemoveAsync(key, token);
+            return _redisCache.RemoveAsync(key, token);
         }
 
         public void Set(string key, string value, DistributedCacheEntryOptions options)
         {
-            redisCache.SetString(key, value, options);
+            _redisCache.SetString(key, value, options);
         }
 
 
@@ -69,7 +77,7 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
             {
                 AbsoluteExpirationRelativeToNow = DefaultExpirationTimeSpan
             };
-            redisCache.SetString(key, value, options);
+            _redisCache.SetString(key, value, options);
         }
 
         public Task SetAsync(string key, string value, CancellationToken token = default)
@@ -78,7 +86,7 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
             {
                 AbsoluteExpirationRelativeToNow = DefaultExpirationTimeSpan
             };
-            return redisCache.SetStringAsync(key, value, options, token);
+            return _redisCache.SetStringAsync(key, value, options, token);
         }
         public Task SetAsync(string key, string value, TimeSpan expirationTimeSpan, CancellationToken token = default)
         {
@@ -86,11 +94,11 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
             {
                 AbsoluteExpirationRelativeToNow = expirationTimeSpan
             };
-            return redisCache.SetStringAsync(key, value, options, token);
+            return _redisCache.SetStringAsync(key, value, options, token);
         }
         public string Get(string key)
         {
-            byte[] redisData = redisCache.Get(key);
+            byte[] redisData = _redisCache.Get(key);
             string result = string.Empty;
 
             if (redisData != null && redisData.Length > 0)
@@ -133,8 +141,8 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
             {
                 AbsoluteExpirationRelativeToNow = expirationTimeSpan
             };
-            var data = JsonExtenstions.ToJSON(value);
-            redisCache.SetString(key, data, options);
+            var data = value.ToJSON();
+            _redisCache.SetString(key, data, options);
         }
 
         public Task SetAsync<T>(string key, T value, TimeSpan expirationTimeSpan)
@@ -143,8 +151,8 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
             {
                 AbsoluteExpirationRelativeToNow = expirationTimeSpan
             };
-            var data = JsonExtenstions.ToJSON(value);
-            return redisCache.SetStringAsync(key, data, options);
+            var data = value.ToJSON();
+            return _redisCache.SetStringAsync(key, data, options);
         }
 
 
@@ -155,7 +163,7 @@ namespace Eskisehirspor.Infrastructure.Cache.Redis
                 AbsoluteExpirationRelativeToNow = expirationTime
             };
 
-            redisCache.Set(key, Encoding.Default.GetBytes(value), options);
+            _redisCache.Set(key, Encoding.Default.GetBytes(value), options);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Eskisehirspor.Infrastructure.Cache.Redis
+﻿namespace Eskisehirspor.Application.Common.Caching.Redis
 {
     public class RedisConfig
     {

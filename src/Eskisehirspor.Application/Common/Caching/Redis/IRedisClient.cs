@@ -1,13 +1,13 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Distributed;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Eskisehirspor.Infrastructure.Cache.InMemory.Interfaces
+namespace Eskisehirspor.Application.Common.Caching.Redis
 {
-    public interface IInMemoryClient
+    public interface IRedisClient
     {
         T Get<T>(string key);
         string Get(string key);
@@ -23,8 +23,6 @@ namespace Eskisehirspor.Infrastructure.Cache.InMemory.Interfaces
         Task SetAsync(string key, string value, TimeSpan expirationTimeSpan, CancellationToken token = default);
         Task SetAsync(string key, string value, CancellationToken token = default);
         T GetFromCacheOrCreate<T>(string cacheKey, int minutes, Func<T> createOperation) where T : class;
-        void Set(string key, string value, MemoryCacheEntryOptions options);
 
-        void Set<T>(string key, T value, MemoryCacheEntryOptions options);
     }
 }

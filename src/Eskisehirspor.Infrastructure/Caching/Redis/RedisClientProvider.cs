@@ -1,26 +1,21 @@
-﻿using Eskisehirspor.Infrastructure.Cache.Redis.Interfaces;
+﻿using Eskisehirspor.Application.Common.Caching.Redis;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Redis;
 using Microsoft.Extensions.Options;
 
-namespace Eskisehirspor.Infrastructure.Cache.Redis
+namespace Eskisehirspor.Infrastructure.Caching.Redis
 {
     public class RedisClientProvider : IRedisClientProvider
     {
-        private IRedisClientConfigProvider redisClientConfigProvider { get; set; }
+        private readonly IRedisClientConfigProvider _redisClientConfigProvider;
         public RedisClientProvider(IRedisClientConfigProvider redisClientConfigProvider)
         {
-            this.redisClientConfigProvider = redisClientConfigProvider;
+            _redisClientConfigProvider = redisClientConfigProvider;
         }
 
-        public IRedisClient GetRedisClient(string redisName)
+        public IDistributedCache GetDistributedCache()
         {
-            return new RedisClient(GetDistributedCache(redisName));
-        }
-
-        public IDistributedCache GetDistributedCache(string redisName)
-        {
-            RedisConfig redisConfig = redisClientConfigProvider.GetRedisConfig(redisName);
+            RedisConfig redisConfig = _redisClientConfigProvider.GetRedisConfig();
             IOptions<RedisCacheOptions> options = new RedisCacheOptions()
             {
                 Configuration = redisConfig.Configuration,

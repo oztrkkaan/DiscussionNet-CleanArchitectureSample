@@ -1,7 +1,6 @@
 ﻿using Eskisehirspor.Application.Common.Behaviours;
 using Eskisehirspor.Application.Common.Identity;
 using Eskisehirspor.Application.Common.Interfaces;
-using Eskisehirspor.Application.UseCases.Feed.LatestThreads.Worker;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -20,7 +19,6 @@ namespace Eskisehirspor.Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IIdentityManager, IdentityManager>();
-
         }
     }
 }
