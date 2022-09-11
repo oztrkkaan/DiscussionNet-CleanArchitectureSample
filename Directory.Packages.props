@@ -23,7 +23,7 @@
 
     <PackageVersion Include="Hangfire" Version="1.7.31" />
     <PackageVersion Include="Hangfire.Core" Version="1.7.31" />
-    <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="1.7.31" />
+    <PackageVersion Include="Hangfire.Dashboard.Basic.Authentication" Version="5.0.0" />
     <PackageVersion Include="Hangfire.SqlServer" Version="1.7.31" />
     <PackageVersion Include="Hangfire.AspNetCore" Version="1.7.31" />
     <PackageVersion Include="Hangfire.MemoryStorage" Version="1.7.0" />
