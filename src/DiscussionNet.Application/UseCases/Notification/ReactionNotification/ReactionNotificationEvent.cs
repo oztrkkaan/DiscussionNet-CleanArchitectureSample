@@ -1,7 +1,6 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.Notification.CreateNotification;
-using DiscussionNet.Application.UseCases.Notification.UserNotification.Create.Publisher;
 using DiscussionNet.Application.UseCases.User.GetUserById;
+using GuardNet;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Transactions;
@@ -34,29 +33,37 @@ namespace DiscussionNet.Application.UseCases.Notification.ReactionNotification
             var thread = _context.Threads.Include(m => m.Topic).FirstOrDefault(m => m.Id == notification.ThreadId);
             ArgumentNullException.ThrowIfNull(thread);
 
-            var newNotification = await CreateNotification(reactedUser.Username, thread.Topic.Subject, cancellationToken);
+            using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
-            await CreateUserNotification(notification.ReceiverUserId, newNotification.NotificationId, cancellationToken);
+            var notificationId = await CreateNotification(reactedUser.Username, thread.Topic.Subject, cancellationToken);
+            await CreateUserNotification(notification.ReceiverUserId, notificationId, cancellationToken);
 
+            transaction.Complete();
         }
 
-        public async Task<CreateNotificationResponse> CreateNotification(string username, string subject, CancellationToken cancellationToken)
+        public async Task<int> CreateNotification(string username, string subject, CancellationToken cancellationToken)
         {
             string content = string.Format(NOTIFICATION_CONTENT, username, subject);
-            return await _mediator.Send(new CreateNotificationCommand
-            {
-                Content = content,
-                Url = "#link"
-            }, cancellationToken);
+            string url = "#link";
+
+            var notification = new Domain.Entities.Notification(content, url);
+
+            await _context.Notifications.AddAsync(notification, cancellationToken);
+            int effectedRows = await _context.SaveChangesAsync(cancellationToken);
+            Guard.NotEqualTo(effectedRows, 1, new ArgumentException("CreateNotification failed."));
+
+            return notification.Id;
         }
 
-        public async Task CreateUserNotification(int userId, int notificartionId, CancellationToken cancellationToken)
+        public async Task CreateUserNotification(int userId, int notificationId, CancellationToken cancellationToken)
         {
-            await _mediator.Publish(new CreateUserNotificationPublisher
-            {
-                UserId = userId,
-                NotificationId = notificartionId
-            }, cancellationToken);
+            var user = _context.Users.FirstOrDefault(m => m.Id == userId);
+            var notification = _context.Notifications.FirstOrDefault(m => m.Id == notificationId);
+            var userNotification = new Domain.Entities.UserNotification(user, notification);
+
+            await _context.UserNotifications.AddAsync(userNotification, cancellationToken);
+            int effectedRows = await _context.SaveChangesAsync(cancellationToken);
+            Guard.NotEqualTo(effectedRows, 1, new ArgumentException("CreateUserNotification failed."));
         }
     }
 }
