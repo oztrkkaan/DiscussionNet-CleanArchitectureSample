@@ -15,15 +15,11 @@ namespace DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Cons
 
         public async Task Consume(ConsumeContext<CreateOrUpdateThreadReactionPublisher> context)
         {
-            await Task.Run(async () =>
+            await _meidator.Publish(new CreateOrUpdateThreadReactionEvent
             {
-                await _meidator.Publish(new CreateOrUpdateThreadReactionEvent
-                {
-                    Reaction = context.Message.Reaction,
-                    ThreadId = context.Message.ThreadId,
-                    ReactedUserId = (int)context.Message.ReactedUserId
-
-                });
+                Reaction = context.Message.Reaction,
+                ThreadId = context.Message.ThreadId,
+                ReactedUserId = (int)context.Message.ReactedUserId
             });
         }
     }

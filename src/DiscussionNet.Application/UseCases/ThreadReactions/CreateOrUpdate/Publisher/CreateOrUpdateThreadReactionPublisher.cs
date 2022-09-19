@@ -15,18 +15,14 @@ namespace DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Publ
     public class CreateThreadReactionPublisherHandler : INotificationHandler<CreateOrUpdateThreadReactionPublisher>
     {
         private readonly ISendEndpointProvider _sendEndpointProvider;
-        private readonly IIdentityManager _identityManager;
         private const string EMAILSERVICE_QUEUE_NAME = "reactionservice.reaction";
         public CreateThreadReactionPublisherHandler(ISendEndpointProvider sendEndpointProvider, IIdentityManager identityManager)
         {
             _sendEndpointProvider = sendEndpointProvider;
-            _identityManager = identityManager;
         }
 
         public async Task Handle(CreateOrUpdateThreadReactionPublisher notification, CancellationToken cancellationToken)
         {
-            notification.ReactedUserId = _identityManager.User.Id;
-
             var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{EMAILSERVICE_QUEUE_NAME}"));
             await endpoint.Send(notification, cancellationToken);
         }

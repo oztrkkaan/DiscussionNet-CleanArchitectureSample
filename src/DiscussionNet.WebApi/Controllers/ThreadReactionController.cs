@@ -1,4 +1,5 @@
-﻿using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate;
+﻿using DiscussionNet.Application.Common.Interfaces;
+using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate;
 using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Publisher;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -12,13 +13,15 @@ namespace DiscussionNet.WebApi.Controllers
     public class ThreadReactionController : DefaultApiControllerBase
     {
 
-        public ThreadReactionController(IMediator mediator) : base(mediator)
-        {
+        public ThreadReactionController(IMediator mediator, IIdentityManager identityManager) : base(mediator, identityManager) { }
 
-        }
         [Route("")]
         [HttpPost]
         [Authorize]
-        public async Task React([FromBody] CreateOrUpdateThreadReactionPublisher notification, CancellationToken cancellationToken) => await _mediator.Publish(notification, cancellationToken);
+        public async Task React([FromBody] CreateOrUpdateThreadReactionPublisher notification, CancellationToken cancellationToken)
+        {
+            notification.ReactedUserId = _identityManager.User.Id;
+            await _mediator.Publish(notification, cancellationToken);
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace DiscussionNet.Persistence.Context
         public DbSet<UserEmailVerification> UserEmailVerifications { get; set; }
         //public DbSet<Tag> Tags { get; set; }
         public DbSet<ThreadReaction> ThreadReactions { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
 
         public ForumDbContext(DbContextOptions options) : base(options)
         {

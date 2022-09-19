@@ -52,6 +52,11 @@ namespace DiscussionNet.Persistence.Configurations
 
             builder.Property(m => m.IsEmailVerified)
                 .IsRequired();
+
+            builder.HasMany(m => m.Notifications)
+                .WithMany(m => m.ReceiverUsers)
+                .UsingEntity(j => j.ToTable("UserNotification"));
+
         }
     }
 }

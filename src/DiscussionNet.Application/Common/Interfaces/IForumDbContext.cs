@@ -13,6 +13,8 @@ namespace DiscussionNet.Application.Common.Interfaces
         //DbSet<Tag> Tags { get; set; }
         DbSet<Thread> Threads { get; set; }
         DbSet<ThreadReaction> ThreadReactions { get; set; }
+        DbSet<Notification> Notifications { get; set; }
+        DbSet<UserNotification> UserNotifications { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
         Task<IDbContextTransaction> BeginTransactionAsync();
     }

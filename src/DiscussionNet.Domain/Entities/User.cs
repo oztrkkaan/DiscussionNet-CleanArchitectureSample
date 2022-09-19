@@ -54,6 +54,7 @@ namespace DiscussionNet.Domain.Entities
         public UserEmailVerification LastEmailVerification => EmailVerifications.OrderByDescending(m => m.CreationDate).FirstOrDefault();
         public ICollection<Thread> Threads { get; set; }
         public ICollection<ThreadReaction> Reactions { get; set; }
+        public ICollection<Notification> Notifications { get; set; }
 
         public enum AuthorStatuses
         {
