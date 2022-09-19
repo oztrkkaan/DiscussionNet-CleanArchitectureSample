@@ -2,6 +2,8 @@ using DiscussionNet.Application;
 using DiscussionNet.Application.Common.Hangfire;
 using DiscussionNet.Application.UseCases.Email.RegistrationEmail.Consumer;
 using DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics.Consumer;
+using DiscussionNet.Application.UseCases.Notification.ReactionNotification.Consumer;
+using DiscussionNet.Application.UseCases.Notification.UserNotification.Create.Consumer;
 using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Consumer;
 using DiscussionNet.Infrastructure;
 using DiscussionNet.Persistence;
@@ -50,7 +52,14 @@ void ConsumerDefines(IServiceCollection services)
            .Endpoint(cfg => cfg.Name = "reactionservice.reaction");
        
         x.AddConsumer<RefreshLatestTopicsConsumer>()
-         .Endpoint(cfg => cfg.Name = "jobs.refresh-latest-topics");
+           .Endpoint(cfg => cfg.Name = "jobs.refresh-latest-topics");
+      
+        x.AddConsumer<CreateUserNotificationConsumer>()
+           .Endpoint(cfg => cfg.Name = "notificationservice.create-user-notifications");
+
+        x.AddConsumer<ReactionNotificationConsumer>()
+           .Endpoint(cfg => cfg.Name = "notificationservice.reaction-notifications");
+
         x.UsingRabbitMq((context, cfg) =>
         {
             cfg.ConfigureEndpoints(context);
