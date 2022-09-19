@@ -13,14 +13,11 @@ namespace DiscussionNet.Application.UseCases.Email.RegistrationEmail.Consumer
         }
         public async Task Consume(ConsumeContext<SendRegistrationEmailPublisher> context)
         {
-            await Task.Run(async () =>
+            await _mediator.Publish(new SendRegistrationEmailEvent
             {
-                await _mediator.Publish(new SendRegistrationEmailEvent
-                {
-                    Email = context.Message.Email,
-                    Username = context.Message.Username,
-                    DisplayName = context.Message.DisplayName
-                });
+                Email = context.Message.Email,
+                Username = context.Message.Username,
+                DisplayName = context.Message.DisplayName
             });
         }
     }

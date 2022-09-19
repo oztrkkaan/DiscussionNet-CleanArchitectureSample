@@ -6,8 +6,8 @@ namespace DiscussionNet.Application.Common.Identity
 {
     public class IdentityManager : IIdentityManager
     {
-        IHttpContextAccessor _httpContextAccessor;
-        IIdentity _identity;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IIdentity _identity;
         public IdentityManager(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;

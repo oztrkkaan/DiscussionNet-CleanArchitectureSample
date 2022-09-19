@@ -31,7 +31,7 @@ namespace DiscussionNet.Application.UseCases.Authentication.SignIn
             VerifyUserPassword(request.Password, user);
 
             var authUser = _mapper.Map<AuthenticatedUser>(user);
-            var token = _tokenService.CreateAccessToken(60 * 10, authUser);
+            var token = _tokenService.CreateAccessToken(60 * 100000, authUser);
 
             return new SignInResponse
             {
