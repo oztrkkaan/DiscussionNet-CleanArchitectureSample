@@ -22,7 +22,7 @@ namespace DiscussionNet.Application.Common.Behaviours
                 var validationResults = await Task.WhenAll(_validators.Select(m => m.ValidateAsync(context, cancellationToken)));
                 var failures = validationResults.SelectMany(m => m.Errors).Where(m => m != null).ToList();
                 if (failures.Any())
-                    throw new ValidationException(failures);
+                    throw new Exceptions.ValidationException(failures);
             }
             return await next();
         }

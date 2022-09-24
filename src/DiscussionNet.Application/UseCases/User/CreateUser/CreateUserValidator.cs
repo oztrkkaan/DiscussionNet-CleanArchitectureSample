@@ -20,7 +20,7 @@ namespace DiscussionNet.Application.UseCases.User.CreateUser
                 .Must(m => Domain.Entities.User.IsValidDisplayName(m)).WithMessage($"Görünen ad {Domain.Entities.User.DISPLAYNAME_MIN_LENGTH} ile {Domain.Entities.User.DISPLAYNAME_MAX_LENGTH} karakter aralığında olmalıdır.");
 
             RuleFor(m => m)
-                .Must(m => Domain.Entities.User.IsValidPassword(m.Password, m.PasswordConfirm)).WithMessage($"Geçersiz parola. {string.Format(Domain.Entities.User.PASSWORD_RULE_MESSAGE, Domain.Entities.User.PASSWORD_MIN_LENGTH)}");
+                .Must(m => Domain.Entities.User.IsValidPassword(m.Password, m.PasswordConfirm)).WithMessage($"Geçersiz parola. {string.Format(Domain.Entities.User.PASSWORD_RULE_MESSAGE, Domain.Entities.User.PASSWORD_MIN_LENGTH)}").WithName("Password");
         }
     }
 }

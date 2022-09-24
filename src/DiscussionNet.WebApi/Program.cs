@@ -1,10 +1,13 @@
 using DiscussionNet.Application;
 using DiscussionNet.Infrastructure;
+using DiscussionNet.Infrastructure.Middlewares;
+using DiscussionNet.Infrastructure.Serilog;
 using DiscussionNet.Infrastructure.Token.Jwt;
 using DiscussionNet.Persistence;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +22,7 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddPersistenceLayer(builder.Configuration);
 
+builder.Services.AddSerilog();
 AddJwtService(builder.Services, builder.Configuration);
 AddMassTransit(builder.Services);
 var app = builder.Build();
@@ -34,9 +38,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
+app.UseExceptionMiddleware();
 app.Run();
 
 void AddJwtService(IServiceCollection services, IConfiguration configuration)

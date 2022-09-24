@@ -24,6 +24,8 @@ namespace DiscussionNet.Application.UseCases.Topic.CreateTopic
 
         public async Task<CreateTopicResponse> Handle(CreateTopicCommand request, CancellationToken cancellationToken)
         {
+            throw new Exception("lalal");
+
             using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
             ThrowIfTopicAlreadyExist(request.Subject);

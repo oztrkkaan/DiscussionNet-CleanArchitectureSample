@@ -22,6 +22,14 @@
     <PackageReference Include="HangFire.Core" />
     <PackageReference Include="Hangfire.Dashboard.Basic.Authentication" />
     <PackageReference Include="Hangfire.SqlServer" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Extensions.Logging" />
+    <PackageReference Include="Serilog.Sinks.Map" />
+
+    
   </ItemGroup>
 
   <ItemGroup>
