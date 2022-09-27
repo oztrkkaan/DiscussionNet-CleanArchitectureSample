@@ -2,6 +2,7 @@ using AspNetCoreRateLimit;
 using DiscussionNet.Application;
 using DiscussionNet.Infrastructure;
 using DiscussionNet.Infrastructure.Middlewares;
+using DiscussionNet.Infrastructure.RateLimiting;
 using DiscussionNet.Infrastructure.Serilog;
 using DiscussionNet.Infrastructure.Token.Jwt;
 using DiscussionNet.Persistence;
@@ -23,18 +24,7 @@ builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructureLayer();
 builder.Services.AddPersistenceLayer(builder.Configuration);
 builder.Services.AddSerilog();
-
-
-builder.Services.AddOptions();
-builder.Services.AddMemoryCache();
-builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
-builder.Services.Configure<IpRateLimitPolicies>(builder.Configuration.GetSection("IpRateLimitPolicies"));
-builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
-builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
-builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
-
+builder.Services.AddRateLimiting(builder.Configuration);
 
 AddJwtService(builder.Services, builder.Configuration);
 AddMassTransit(builder.Services);
@@ -48,7 +38,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseIpRateLimiting();
+app.ConfigureIpRateLimiting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
