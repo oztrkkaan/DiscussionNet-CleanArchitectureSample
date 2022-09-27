@@ -22,6 +22,44 @@ namespace DiscussionNet.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPassive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("DiscussionNet.Domain.Entities.Thread", b =>
                 {
                     b.Property<int>("Id")
@@ -253,6 +291,50 @@ namespace DiscussionNet.Persistence.Migrations
                     b.ToTable("UserEmailVerifications");
                 });
 
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.UserNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("NotificationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ReadDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ReceiverUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotificationId");
+
+                    b.HasIndex("ReceiverUserId");
+
+                    b.ToTable("UserNotifications");
+                });
+
+            modelBuilder.Entity("NotificationUser", b =>
+                {
+                    b.Property<int>("NotificationsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReceiverUsersId")
+                        .HasColumnType("int");
+
+                    b.HasKey("NotificationsId", "ReceiverUsersId");
+
+                    b.HasIndex("ReceiverUsersId");
+
+                    b.ToTable("UserNotification", (string)null);
+                });
+
             modelBuilder.Entity("DiscussionNet.Domain.Entities.Thread", b =>
                 {
                     b.HasOne("DiscussionNet.Domain.Entities.Topic", "Topic")
@@ -290,6 +372,36 @@ namespace DiscussionNet.Persistence.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.UserNotification", b =>
+                {
+                    b.HasOne("DiscussionNet.Domain.Entities.Notification", "Notification")
+                        .WithMany()
+                        .HasForeignKey("NotificationId");
+
+                    b.HasOne("DiscussionNet.Domain.Entities.User", "ReceiverUser")
+                        .WithMany()
+                        .HasForeignKey("ReceiverUserId");
+
+                    b.Navigation("Notification");
+
+                    b.Navigation("ReceiverUser");
+                });
+
+            modelBuilder.Entity("NotificationUser", b =>
+                {
+                    b.HasOne("DiscussionNet.Domain.Entities.Notification", null)
+                        .WithMany()
+                        .HasForeignKey("NotificationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DiscussionNet.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("ReceiverUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DiscussionNet.Domain.Entities.Thread", b =>
