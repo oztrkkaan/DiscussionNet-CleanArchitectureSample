@@ -28,8 +28,6 @@
     <PackageReference Include="Serilog.Sinks.Console" />
     <PackageReference Include="Serilog.Extensions.Logging" />
     <PackageReference Include="Serilog.Sinks.Map" />
-
-    
   </ItemGroup>
 
   <ItemGroup>

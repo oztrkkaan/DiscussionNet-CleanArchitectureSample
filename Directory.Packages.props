@@ -44,12 +44,7 @@
     <PackageVersion Include="Serilog.Extensions.Logging" Version="3.1.0" />
     <PackageVersion Include="Serilog.Sinks.Map" Version="1.0.2" />
 
-    
-
-
-
-
-
+    <PackageVersion Include="AspNetCoreRateLimit " Version="4.0.2" />
 
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageVersion Include="Guard.net" Version="3.0.0" />
