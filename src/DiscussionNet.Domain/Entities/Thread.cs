@@ -1,4 +1,5 @@
 ﻿using DiscussionNet.Domain.Common;
+using DiscussionNet.Domain.Exceptions;
 using DiscussionNet.Domain.Interfaces;
 
 namespace DiscussionNet.Domain.Entities
@@ -6,6 +7,7 @@ namespace DiscussionNet.Domain.Entities
     public class Thread : AuditableEntity, ISoftDelete
     {
         private const int CONTENT_MIN_LENGTH = 1;
+        private const string CONTENT_LENGTH_ERROR_MESSAGE = "İçerik daha uzun olmalı.";
         public Thread(string content, Topic topic, User user, string ipAddress)
         {
             SetContent(content);
@@ -54,7 +56,7 @@ namespace DiscussionNet.Domain.Entities
             var isVerifiedContent = IsVerifiedContent(content);
             if (!isVerifiedContent)
             {
-                throw new Exception();
+                throw new CustomException(CONTENT_LENGTH_ERROR_MESSAGE, true);
             }
             Content = content;
         }

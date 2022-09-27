@@ -1,4 +1,5 @@
 ﻿using DiscussionNet.Domain.Common;
+using DiscussionNet.Domain.Exceptions;
 using DiscussionNet.Domain.Interfaces;
 
 namespace DiscussionNet.Domain.Entities
@@ -7,6 +8,7 @@ namespace DiscussionNet.Domain.Entities
     {
         public const int SUBJECT_MIN_LENGTH = 1;
         public const int SUBJECT_MAX_LENGTH = 60;
+        public const string SUBJECT_LENGTH_ERROR_MESSAGE = "Başlık uzunluğu {0} ve {1} karakter aralığında olmalıdır.";
 
         public Topic(string subject, List<Tag> tags = null)
         {
@@ -23,9 +25,6 @@ namespace DiscussionNet.Domain.Entities
         public ICollection<Thread> Threads { get; private set; }
         public int ThreadCount => Threads.Count();
 
-
-
-
         public void SetTag(List<Tag> tags)
         {
             Tags = tags;
@@ -35,7 +34,7 @@ namespace DiscussionNet.Domain.Entities
             bool isValidSubject = IsValidSubject(subject);
             if (!isValidSubject)
             {
-                throw new Exception();
+                throw new CustomException(string.Format(SUBJECT_LENGTH_ERROR_MESSAGE, SUBJECT_MIN_LENGTH, SUBJECT_MAX_LENGTH), true);
             }
             Subject = subject;
         }

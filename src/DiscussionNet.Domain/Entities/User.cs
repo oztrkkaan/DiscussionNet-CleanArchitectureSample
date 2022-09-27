@@ -1,4 +1,5 @@
 ﻿using DiscussionNet.Domain.Common;
+using DiscussionNet.Domain.Exceptions;
 using DiscussionNet.Domain.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mail;
@@ -12,9 +13,12 @@ namespace DiscussionNet.Domain.Entities
         public const int USERNAME_MAX_LENGTH = 16;
         public const int USERNAME_MIN_LENGTH = 3;
         public const string USERNAME_REGEX = @"^(?=.{3,16}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
+        public const string USERNAME_REGEX_ERROR_MESSAGE = "Kullanıcı adı uzunluğu {0} ile {1} karakter arasında olmalıdır. Boşluk ve özel karakter içermemelidir.";
+
 
         public const int DISPLAYNAME_MAX_LENGTH = 30;
         public const int DISPLAYNAME_MIN_LENGTH = 1;
+        public const string DISPLAYNAME_LENGTH_ERROR_MESSAGE = "'Görünen Ad' uzunluğu {0} ile {1} karakter arasında olmalıdır.";
 
         public const int PASSWORD_MIN_LENGTH = 8;
         public const string PASSWORD_RULE_MESSAGE = "Şifre en az {0} karakterden oluşmalı";
@@ -70,7 +74,7 @@ namespace DiscussionNet.Domain.Entities
         {
             if (!IsValidDisplayName(displayName))
             {
-                throw new Exception($"DisplayName length must be {DISPLAYNAME_MIN_LENGTH}-{DISPLAYNAME_MAX_LENGTH}");
+                throw new CustomException(string.Format(DISPLAYNAME_LENGTH_ERROR_MESSAGE, DISPLAYNAME_MIN_LENGTH, DISPLAYNAME_MAX_LENGTH));
             }
             DisplayName = displayName;
         }
@@ -92,7 +96,7 @@ namespace DiscussionNet.Domain.Entities
         {
             if (!IsValidUsername(username))
             {
-                throw new Exception("Invalid username");
+                throw new Exception(String.Format(USERNAME_REGEX_ERROR_MESSAGE, USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH));
             }
             Username = username;
         }
@@ -130,7 +134,6 @@ namespace DiscussionNet.Domain.Entities
                     }
                 }
             }
-
             return true;
         }
         public void SetEmail(string email)
