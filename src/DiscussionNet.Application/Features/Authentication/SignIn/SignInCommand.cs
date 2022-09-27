@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using DiscussionNet.Application.Common.Identity;
 using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.Common.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DiscussionNet.Application.UseCases.Authentication.SignIn
+namespace DiscussionNet.Application.Features.Authentication.SignIn
 {
     public class SignInCommand : IRequest<SignInResponse>
     {

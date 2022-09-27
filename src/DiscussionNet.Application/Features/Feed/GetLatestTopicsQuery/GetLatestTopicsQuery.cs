@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using static DiscussionNet.Application.UseCases.Feed.GetLatestTopicsQuery.GetLatestTopicsQueryHandler;
+using static DiscussionNet.Application.Features.Feed.GetLatestTopicsQuery.GetLatestTopicsQueryHandler;
 using DiscussionNet.Domain.Entities;
 using DiscussionNet.Application.Common.Caching.Redis;
 
-namespace DiscussionNet.Application.UseCases.Feed.GetLatestTopicsQuery
+namespace DiscussionNet.Application.Features.Feed.GetLatestTopicsQuery
 {
     public class GetLatestTopicsQuery : IRequest<GetLatestTopicsQueryResponse>
     { }

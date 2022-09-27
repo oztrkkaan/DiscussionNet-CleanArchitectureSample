@@ -1,7 +1,7 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Email.EmailVerification
+namespace DiscussionNet.Application.Features.Email.EmailVerification
 {
     public class VerifyUserEmailCommand : IRequest<VerifyUserEmailResponse>
     {

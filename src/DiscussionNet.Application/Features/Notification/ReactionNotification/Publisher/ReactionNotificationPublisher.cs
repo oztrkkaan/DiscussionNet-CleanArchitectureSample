@@ -2,7 +2,7 @@
 using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Notification.ReactionNotification.Publisher
+namespace DiscussionNet.Application.Features.Notification.ReactionNotification.Publisher
 {
     public record ReactionNotificationPublisher : INotification
     {

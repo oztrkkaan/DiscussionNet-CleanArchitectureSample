@@ -1,9 +1,9 @@
-﻿using DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics.Publisher;
-using DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics;
+﻿using DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Publisher;
+using DiscussionNet.Application.Features.Feed.RefreshLatestTopics;
 using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics.Consumer
+namespace DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Consumer
 {
     public class RefreshLatestTopicsConsumer : IConsumer<RefreshLatestTopicsPublisher>
     {

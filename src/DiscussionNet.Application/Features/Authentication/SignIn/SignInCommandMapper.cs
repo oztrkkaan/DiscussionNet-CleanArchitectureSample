@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DiscussionNet.Application.Common.Identity;
 
-namespace DiscussionNet.Application.UseCases.Authentication.SignIn
+namespace DiscussionNet.Application.Features.Authentication.SignIn
 {
     public class SignInCommandMapper : Profile
     {

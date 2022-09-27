@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics.Publisher
+namespace DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Publisher
 {
     public class RefreshLatestTopicsPublisher : INotification
     { }

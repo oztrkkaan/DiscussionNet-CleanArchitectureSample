@@ -1,8 +1,8 @@
-﻿using DiscussionNet.Application.UseCases.Notification.ReactionNotification.Publisher;
+﻿using DiscussionNet.Application.Features.Notification.ReactionNotification.Publisher;
 using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Notification.ReactionNotification.Consumer
+namespace DiscussionNet.Application.Features.Notification.ReactionNotification.Consumer
 {
     public record ReactionNotificationConsumer : IConsumer<ReactionNotificationPublisher>
     {

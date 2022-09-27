@@ -1,9 +1,9 @@
 using DiscussionNet.Application;
 using DiscussionNet.Application.Common.Hangfire;
-using DiscussionNet.Application.UseCases.Email.RegistrationEmail.Consumer;
-using DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics.Consumer;
-using DiscussionNet.Application.UseCases.Notification.ReactionNotification.Consumer;
-using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Consumer;
+using DiscussionNet.Application.Features.Email.RegistrationEmail.Consumer;
+using DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Consumer;
+using DiscussionNet.Application.Features.Notification.ReactionNotification.Consumer;
+using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Consumer;
 using DiscussionNet.Infrastructure;
 using DiscussionNet.Persistence;
 using MassTransit;

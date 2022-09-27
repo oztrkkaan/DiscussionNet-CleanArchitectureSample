@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Email.RegistrationEmail.Publisher
+namespace DiscussionNet.Application.Features.Email.RegistrationEmail.Publisher
 {
     public class SendRegistrationEmailPublisher : INotification
     {

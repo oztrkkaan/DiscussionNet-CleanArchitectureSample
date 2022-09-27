@@ -1,9 +1,9 @@
-﻿using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Publisher;
-using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate;
+﻿using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Publisher;
+using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate;
 using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Consumer
+namespace DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Consumer
 {
     public class CreateOrUpdateThreadReactionConsumer : IConsumer<CreateOrUpdateThreadReactionPublisher>
     {

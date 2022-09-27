@@ -3,7 +3,7 @@ using MassTransit;
 using MediatR;
 using static DiscussionNet.Domain.Entities.ThreadReaction;
 
-namespace DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Publisher
+namespace DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Publisher
 {
     public class CreateOrUpdateThreadReactionPublisher : INotification
     {

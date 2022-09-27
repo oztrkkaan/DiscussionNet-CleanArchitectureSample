@@ -1,4 +1,4 @@
-﻿using DiscussionNet.Application.UseCases.Authentication.SignIn;
+﻿using DiscussionNet.Application.Features.Authentication.SignIn;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

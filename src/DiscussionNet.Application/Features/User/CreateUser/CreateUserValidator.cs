@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace DiscussionNet.Application.UseCases.User.CreateUser
+namespace DiscussionNet.Application.Features.User.CreateUser
 {
     public class CreateUserValidator : AbstractValidator<CreateUserCommand>
     {

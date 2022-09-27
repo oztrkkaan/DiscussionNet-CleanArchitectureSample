@@ -1,6 +1,5 @@
-﻿using DiscussionNet.Application.UseCases.User.CreateUser;
+﻿using DiscussionNet.Application.Features.User.CreateUser;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiscussionNet.WebApi.Controllers

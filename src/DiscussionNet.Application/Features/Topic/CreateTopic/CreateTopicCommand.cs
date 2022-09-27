@@ -1,10 +1,10 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.Thread.CreateThread;
+using DiscussionNet.Application.Features.Thread.CreateThread;
 using DiscussionNet.Domain.Entities;
 using MediatR;
 using System.Transactions;
 
-namespace DiscussionNet.Application.UseCases.Topic.CreateTopic
+namespace DiscussionNet.Application.Features.Topic.CreateTopic
 {
     public class CreateTopicCommand : IRequest<CreateTopicResponse>
     {

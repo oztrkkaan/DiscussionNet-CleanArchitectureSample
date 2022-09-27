@@ -1,11 +1,11 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.User.GetUserById;
+using DiscussionNet.Application.Features.User.GetUserById;
 using GuardNet;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 
-namespace DiscussionNet.Application.UseCases.Notification.ReactionNotification
+namespace DiscussionNet.Application.Features.Notification.ReactionNotification
 {
     internal record ReactionNotificationEvent : INotification
     {

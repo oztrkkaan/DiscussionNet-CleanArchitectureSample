@@ -1,4 +1,4 @@
-﻿using DiscussionNet.Application.UseCases.Topic.CreateTopic;
+﻿using DiscussionNet.Application.Features.Topic.CreateTopic;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

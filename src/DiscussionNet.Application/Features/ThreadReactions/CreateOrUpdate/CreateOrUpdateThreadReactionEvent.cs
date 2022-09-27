@@ -1,12 +1,12 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.Notification.ReactionNotification.Publisher;
+using DiscussionNet.Application.Features.Notification.ReactionNotification.Publisher;
 using DiscussionNet.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using static DiscussionNet.Domain.Entities.ThreadReaction;
 
 
-namespace DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate
+namespace DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate
 {
     public record CreateOrUpdateThreadReactionEvent : INotification
     {

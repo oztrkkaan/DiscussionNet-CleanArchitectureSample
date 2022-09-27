@@ -1,7 +1,7 @@
-﻿using DiscussionNet.Application.UseCases.Feed.GetLatestTopicsQuery;
+﻿using DiscussionNet.Application.Features.Feed.GetLatestTopicsQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using static DiscussionNet.Application.UseCases.Feed.GetLatestTopicsQuery.GetLatestTopicsQueryHandler;
+using static DiscussionNet.Application.Features.Feed.GetLatestTopicsQuery.GetLatestTopicsQueryHandler;
 
 namespace DiscussionNet.WebApi.Controllers
 {

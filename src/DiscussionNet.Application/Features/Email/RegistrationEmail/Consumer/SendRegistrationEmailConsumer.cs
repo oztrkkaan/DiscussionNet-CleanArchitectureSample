@@ -1,8 +1,8 @@
-﻿using DiscussionNet.Application.UseCases.Email.RegistrationEmail.Publisher;
+﻿using DiscussionNet.Application.Features.Email.RegistrationEmail.Publisher;
 using MassTransit;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Email.RegistrationEmail.Consumer
+namespace DiscussionNet.Application.Features.Email.RegistrationEmail.Consumer
 {
     public class SendRegistrationEmailConsumer : IConsumer<SendRegistrationEmailPublisher>
     {

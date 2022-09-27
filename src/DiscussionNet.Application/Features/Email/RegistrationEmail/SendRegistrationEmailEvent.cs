@@ -2,7 +2,7 @@
 using DiscussionNet.Application.Common.Mailing;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Email.RegistrationEmail
+namespace DiscussionNet.Application.Features.Email.RegistrationEmail
 {
     public class SendRegistrationEmailEvent : INotification
     {

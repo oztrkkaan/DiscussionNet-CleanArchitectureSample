@@ -1,9 +1,8 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.Email.EmailVerification;
-using DiscussionNet.Application.UseCases.Email.RegistrationEmail.Publisher;
+using DiscussionNet.Application.Features.Email.EmailVerification;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.User.CreateUser
+namespace DiscussionNet.Application.Features.User.CreateUser
 {
     public class CreateUserCommand : IRequest<CreateUserResponse>
     {

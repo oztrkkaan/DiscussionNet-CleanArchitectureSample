@@ -2,7 +2,7 @@
 using MediatR;
 
 
-namespace DiscussionNet.Application.UseCases.User.GetUserById
+namespace DiscussionNet.Application.Features.User.GetUserById
 {
     public record GetUserByIdQuery : IRequest<GetUserByIdResponse>
     {

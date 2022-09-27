@@ -1,5 +1,5 @@
 ﻿using DiscussionNet.Application.Common.Hangfire;
-using DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics.Publisher;
+using DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Publisher;
 using Hangfire;
 using Hangfire.SqlServer;
 using HangfireBasicAuthenticationFilter;

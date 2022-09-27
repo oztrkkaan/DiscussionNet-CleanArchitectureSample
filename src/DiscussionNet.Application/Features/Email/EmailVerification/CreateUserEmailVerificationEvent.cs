@@ -1,9 +1,9 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.Email.RegistrationEmail.Publisher;
+using DiscussionNet.Application.Features.Email.RegistrationEmail.Publisher;
 using DiscussionNet.Domain.Entities;
 using MediatR;
 
-namespace DiscussionNet.Application.UseCases.Email.EmailVerification
+namespace DiscussionNet.Application.Features.Email.EmailVerification
 {
     public class CreateUserEmailVerificationEvent : INotification
     {

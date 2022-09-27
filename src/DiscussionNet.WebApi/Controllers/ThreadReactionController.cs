@@ -1,6 +1,6 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate;
-using DiscussionNet.Application.UseCases.ThreadReactions.CreateOrUpdate.Publisher;
+using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate;
+using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Publisher;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

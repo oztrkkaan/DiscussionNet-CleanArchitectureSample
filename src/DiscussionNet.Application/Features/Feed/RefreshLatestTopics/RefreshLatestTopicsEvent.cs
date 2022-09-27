@@ -4,7 +4,7 @@ using DiscussionNet.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace DiscussionNet.Application.UseCases.Feed.RefreshLatestTopics
+namespace DiscussionNet.Application.Features.Feed.RefreshLatestTopics
 {
     public class RefreshLatestTopicsEvent : INotification
     { }

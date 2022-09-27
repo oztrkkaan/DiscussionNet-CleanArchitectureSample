@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace DiscussionNet.Application.UseCases.Thread.CreateThread
+namespace DiscussionNet.Application.Features.Thread.CreateThread
 {
     public class CreateThreadCommand : IRequest<CreateThreadResponse>
     {
