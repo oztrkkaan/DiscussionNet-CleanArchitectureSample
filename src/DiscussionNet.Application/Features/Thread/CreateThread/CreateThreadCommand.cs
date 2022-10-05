@@ -15,7 +15,7 @@ namespace DiscussionNet.Application.Features.Thread.CreateThread
         IForumDbContext _context;
         IIdentityManager _identityManager;
         IHttpContextAccessor _httpContextAccessor;
-        string _ipAddress;
+        private string _ipAddress;
         public CreateThreadCommandHandler(IForumDbContext context, IIdentityManager identityManager, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
