@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace DiscussionNet.Application.Features.User.CreateUser
+namespace DiscussionNet.Application.Features.Authentication.SignUpUser
 {
-    public class CreateUserValidator : AbstractValidator<CreateUserCommand>
+    public class SignUpUserValidator : AbstractValidator<SignUpUserCommand>
     {
-        public CreateUserValidator()
+        public SignUpUserValidator()
         {
             RuleFor(m => m.Email)
                 .NotNull().WithMessage("E-posta adresi boş geçilemez")

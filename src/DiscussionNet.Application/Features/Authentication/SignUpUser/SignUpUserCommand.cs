@@ -2,9 +2,9 @@
 using DiscussionNet.Application.Features.Email.EmailVerification;
 using MediatR;
 
-namespace DiscussionNet.Application.Features.User.CreateUser
+namespace DiscussionNet.Application.Features.Authentication.SignUpUser
 {
-    public class CreateUserCommand : IRequest<CreateUserResponse>
+    public class SignUpUserCommand : IRequest<SignUpUserResponse>
     {
         public string Username { get; init; }
         public string DisplayName { get; init; }
@@ -13,17 +13,17 @@ namespace DiscussionNet.Application.Features.User.CreateUser
         public string Email { get; init; }
     }
 
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserResponse>
+    public class SignUpUserCommandHandler : IRequestHandler<SignUpUserCommand, SignUpUserResponse>
     {
         private readonly IForumDbContext _context;
         private readonly IMediator _mediator;
-        public CreateUserCommandHandler(IForumDbContext context, IMediator mediator)
+        public SignUpUserCommandHandler(IForumDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;
         }
 
-        public async Task<CreateUserResponse> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<SignUpUserResponse> Handle(SignUpUserCommand request, CancellationToken cancellationToken)
         {
             ThrowExceptionIfEmailExist(request.Email);
             ThrowExceptionIfUsernameExist(request.Username);
@@ -35,9 +35,9 @@ namespace DiscussionNet.Application.Features.User.CreateUser
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            await _mediator.Publish(new CreateUserEmailVerificationEvent { UserId = newUser.Id }, cancellationToken);
+            await _mediator.Publish(new SignUpUserEmailVerificationEvent { UserId = newUser.Id }, cancellationToken);
 
-            return new CreateUserResponse
+            return new SignUpUserResponse
             {
                 IsSuccess = true
             };
@@ -69,7 +69,7 @@ namespace DiscussionNet.Application.Features.User.CreateUser
         }
     }
 
-    public class CreateUserResponse
+    public class SignUpUserResponse
     {
         public bool IsSuccess { get; set; }
     }

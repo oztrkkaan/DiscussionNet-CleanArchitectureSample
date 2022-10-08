@@ -5,21 +5,21 @@ using MediatR;
 
 namespace DiscussionNet.Application.Features.Email.EmailVerification
 {
-    public class CreateUserEmailVerificationEvent : INotification
+    public class SignUpUserEmailVerificationEvent : INotification
     {
         public int UserId { get; set; }
     }
 
-    public class CreateUserEmailVerificationEventHandler : INotificationHandler<CreateUserEmailVerificationEvent>
+    public class SignUpUserEmailVerificationEventHandler : INotificationHandler<SignUpUserEmailVerificationEvent>
     {
         IForumDbContext _context;
         IMediator _mediator;
-        public CreateUserEmailVerificationEventHandler(IForumDbContext context, IMediator mediator)
+        public SignUpUserEmailVerificationEventHandler(IForumDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;
         }
-        public async Task Handle(CreateUserEmailVerificationEvent request, CancellationToken cancellationToken)
+        public async Task Handle(SignUpUserEmailVerificationEvent request, CancellationToken cancellationToken)
         {
             var user = _context.Users.SingleOrDefault(m => m.Id == request.UserId);
             var emailVerification = new UserEmailVerification(user);
