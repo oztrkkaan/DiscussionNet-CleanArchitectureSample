@@ -1,0 +1,24 @@
+version: '3.5'
+
+services:
+  rabbitmq3:
+        container_name: "rabbitmq"
+        image: rabbitmq:3.8-management-alpine
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        ports:
+            # AMQP protocol port
+            - '5672:5672'
+            # HTTP management UI
+            - '15672:15672'
+
+  discussion-net-api:
+    image: ${DOCKER_REGISTRY-}discussionnet-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:80
+    depends_on:
+      - rabbitmq3
