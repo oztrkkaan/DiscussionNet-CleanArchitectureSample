@@ -10,9 +10,9 @@ namespace DiscussionNet.Application.Features.Feed.RefreshLatestTopics
     { }
     public class RefreshLatestTopicsEventHandler : INotificationHandler<RefreshLatestTopicsEvent>
     {
-        private readonly IForumDbContext _context;
+        private readonly IDiscussionDbContext _context;
         private readonly IRedisClient _redisClient;
-        public RefreshLatestTopicsEventHandler(IForumDbContext context, IRedisClient redisClient)
+        public RefreshLatestTopicsEventHandler(IDiscussionDbContext context, IRedisClient redisClient)
         {
             _context = context;
             _redisClient = redisClient;

@@ -10,9 +10,9 @@ namespace DiscussionNet.Application.Features.Email.EmailVerification
 
     public class VerifyUserEmailCommandHandler : IRequestHandler<VerifyUserEmailCommand, VerifyUserEmailResponse>
     {
-        private readonly IForumDbContext _context;
+        private readonly IDiscussionDbContext _context;
 
-        public VerifyUserEmailCommandHandler(IForumDbContext context)
+        public VerifyUserEmailCommandHandler(IDiscussionDbContext context)
         {
             _context = context;
         }

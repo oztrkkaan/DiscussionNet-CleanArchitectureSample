@@ -12,11 +12,11 @@ namespace DiscussionNet.Application.Features.Thread.CreateThread
 
     public class CreateThreadCommandHandler : IRequestHandler<CreateThreadCommand, CreateThreadResponse>
     {
-        IForumDbContext _context;
+        IDiscussionDbContext _context;
         IIdentityManager _identityManager;
         IHttpContextAccessor _httpContextAccessor;
         private string _ipAddress;
-        public CreateThreadCommandHandler(IForumDbContext context, IIdentityManager identityManager, IHttpContextAccessor httpContextAccessor)
+        public CreateThreadCommandHandler(IDiscussionDbContext context, IIdentityManager identityManager, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _identityManager = identityManager;

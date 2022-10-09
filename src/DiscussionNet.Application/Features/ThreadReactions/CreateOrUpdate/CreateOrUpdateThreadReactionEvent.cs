@@ -17,10 +17,10 @@ namespace DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate
 
     public class CreateOrUpdateThreadReactionEventHandler : INotificationHandler<CreateOrUpdateThreadReactionEvent>
     {
-        private readonly IForumDbContext _context;
+        private readonly IDiscussionDbContext _context;
         private readonly IMediator _mediator;
 
-        public CreateOrUpdateThreadReactionEventHandler(IForumDbContext context, IMediator mediator)
+        public CreateOrUpdateThreadReactionEventHandler(IDiscussionDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

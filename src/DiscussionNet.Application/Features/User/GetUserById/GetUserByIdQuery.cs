@@ -10,9 +10,9 @@ namespace DiscussionNet.Application.Features.User.GetUserById
     }
     public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, GetUserByIdResponse>
     {
-        IForumDbContext _context;
+        IDiscussionDbContext _context;
 
-        public GetUserByIdQueryHandler(IForumDbContext context)
+        public GetUserByIdQueryHandler(IDiscussionDbContext context)
         {
             _context = context;
         }

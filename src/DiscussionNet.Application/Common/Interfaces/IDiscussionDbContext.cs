@@ -5,7 +5,7 @@ using Thread = DiscussionNet.Domain.Entities.Thread;
 
 namespace DiscussionNet.Application.Common.Interfaces
 {
-    public interface IForumDbContext
+    public interface IDiscussionDbContext
     {
         DbSet<User> Users { get; set; }
         DbSet<UserEmailVerification> UserEmailVerifications { get; set; }

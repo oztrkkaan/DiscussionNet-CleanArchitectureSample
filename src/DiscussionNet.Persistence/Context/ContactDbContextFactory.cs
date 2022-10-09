@@ -2,11 +2,11 @@
 
 namespace DiscussionNet.Persistence.Context
 {
-    public class ContactDbContextFactory : DesignTimeDbContextFactoryBase<ForumDbContext>
+    public class ContactDbContextFactory : DesignTimeDbContextFactoryBase<DiscussionDbContext>
     {
-        protected override ForumDbContext CreateNewInstance(DbContextOptions<ForumDbContext> options)
+        protected override DiscussionDbContext CreateNewInstance(DbContextOptions<DiscussionDbContext> options)
         {
-            return new ForumDbContext(options);
+            return new DiscussionDbContext(options);
         }
     }
 }

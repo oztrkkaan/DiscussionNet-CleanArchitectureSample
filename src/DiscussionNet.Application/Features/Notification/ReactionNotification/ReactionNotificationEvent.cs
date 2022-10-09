@@ -17,9 +17,9 @@ namespace DiscussionNet.Application.Features.Notification.ReactionNotification
     internal class ReactionNotificationEventHandler : INotificationHandler<ReactionNotificationEvent>
     {
         private readonly IMediator _mediator;
-        private readonly IForumDbContext _context;
+        private readonly IDiscussionDbContext _context;
 
-        public ReactionNotificationEventHandler(IMediator mediator, IForumDbContext context)
+        public ReactionNotificationEventHandler(IMediator mediator, IDiscussionDbContext context)
         {
             _mediator = mediator;
             _context = context;

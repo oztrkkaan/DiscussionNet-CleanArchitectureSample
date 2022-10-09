@@ -14,9 +14,9 @@ namespace DiscussionNet.Application.Features.Topic.CreateTopic
     }
     public class CreateTopicCommandHandler : IRequestHandler<CreateTopicCommand, CreateTopicResponse>
     {
-        IForumDbContext _context;
+        IDiscussionDbContext _context;
         IMediator _mediator;
-        public CreateTopicCommandHandler(IForumDbContext context, IMediator mediator)
+        public CreateTopicCommandHandler(IDiscussionDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

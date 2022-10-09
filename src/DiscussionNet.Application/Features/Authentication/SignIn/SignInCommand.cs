@@ -14,10 +14,10 @@ namespace DiscussionNet.Application.Features.Authentication.SignIn
 
     public class SignInCommandHandler : IRequestHandler<SignInCommand, SignInResponse>
     {
-        IForumDbContext _context;
+        IDiscussionDbContext _context;
         ITokenService _tokenService;
         IMapper _mapper;
-        public SignInCommandHandler(IForumDbContext context, ITokenService tokenService, IMapper mapper)
+        public SignInCommandHandler(IDiscussionDbContext context, ITokenService tokenService, IMapper mapper)
         {
             _context = context;
             _tokenService = tokenService;

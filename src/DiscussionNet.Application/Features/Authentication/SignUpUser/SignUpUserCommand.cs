@@ -15,9 +15,9 @@ namespace DiscussionNet.Application.Features.Authentication.SignUpUser
 
     public class SignUpUserCommandHandler : IRequestHandler<SignUpUserCommand, SignUpUserResponse>
     {
-        private readonly IForumDbContext _context;
+        private readonly IDiscussionDbContext _context;
         private readonly IMediator _mediator;
-        public SignUpUserCommandHandler(IForumDbContext context, IMediator mediator)
+        public SignUpUserCommandHandler(IDiscussionDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

@@ -12,9 +12,9 @@ namespace DiscussionNet.Application.Features.Email.EmailVerification
 
     public class SignUpUserEmailVerificationEventHandler : INotificationHandler<SignUpUserEmailVerificationEvent>
     {
-        IForumDbContext _context;
+        IDiscussionDbContext _context;
         IMediator _mediator;
-        public SignUpUserEmailVerificationEventHandler(IForumDbContext context, IMediator mediator)
+        public SignUpUserEmailVerificationEventHandler(IDiscussionDbContext context, IMediator mediator)
         {
             _context = context;
             _mediator = mediator;

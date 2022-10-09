@@ -15,8 +15,8 @@ namespace DiscussionNet.Application.Features.Thread.GetThreadsByTopicId
     }
     public class GetThreadsByTopicIdCommandHandler : IRequestHandler<GetThreadsByTopicIdCommand, GetThreadsByTopicIdResponse>
     {
-        IForumDbContext _context;
-        public GetThreadsByTopicIdCommandHandler(IForumDbContext context)
+        IDiscussionDbContext _context;
+        public GetThreadsByTopicIdCommandHandler(IDiscussionDbContext context)
         {
             _context = context;
         }

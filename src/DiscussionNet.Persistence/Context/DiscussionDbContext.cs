@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace DiscussionNet.Persistence.Context
 {
-    public class ForumDbContext : DbContext, IForumDbContext
+    public class DiscussionDbContext : DbContext, IDiscussionDbContext
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Topic> Topics { get; set; }
@@ -18,7 +18,7 @@ namespace DiscussionNet.Persistence.Context
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<UserNotification> UserNotifications { get; set; }
 
-        public ForumDbContext(DbContextOptions options) : base(options)
+        public DiscussionDbContext(DbContextOptions options) : base(options)
         {
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

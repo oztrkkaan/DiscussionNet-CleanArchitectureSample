@@ -10,10 +10,10 @@ namespace DiscussionNet.Persistence
     {
         public static void AddPersistenceLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ForumDbContext>(options =>
+            services.AddDbContext<DiscussionDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IForumDbContext>(provider => provider.GetService<ForumDbContext>());
+            services.AddScoped<IDiscussionDbContext>(provider => provider.GetService<DiscussionDbContext>());
         }
     }
 }
