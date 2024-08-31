@@ -1,5 +1,4 @@
 ﻿using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Publisher;
-using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate;
 using MassTransit;
 using MediatR;
 

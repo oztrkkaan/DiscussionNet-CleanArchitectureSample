@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Serilog;
-using Serilog.Events;
 
 namespace DiscussionNet.Infrastructure.Serilog
 {

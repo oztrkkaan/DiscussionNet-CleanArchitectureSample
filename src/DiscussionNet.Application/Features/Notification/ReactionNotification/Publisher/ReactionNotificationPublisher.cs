@@ -1,5 +1,4 @@
-﻿using DiscussionNet.Application.Common.Interfaces;
-using MassTransit;
+﻿using MassTransit;
 using MediatR;
 
 namespace DiscussionNet.Application.Features.Notification.ReactionNotification.Publisher

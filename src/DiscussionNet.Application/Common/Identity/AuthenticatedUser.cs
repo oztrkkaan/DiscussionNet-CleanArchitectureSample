@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DiscussionNet.Application.Common.Identity
+﻿namespace DiscussionNet.Application.Common.Identity
 {
     public class AuthenticatedUser
     {

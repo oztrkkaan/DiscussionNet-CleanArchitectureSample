@@ -1,8 +1,4 @@
-﻿using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System.Text;
-
-namespace DiscussionNet.Infrastructure.RabbitMQ
+﻿namespace DiscussionNet.Infrastructure.RabbitMQ
 {
     public class Consumer
     {

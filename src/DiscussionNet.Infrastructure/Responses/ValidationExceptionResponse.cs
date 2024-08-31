@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static DiscussionNet.Application.Common.Exceptions.ValidationException;
+﻿using static DiscussionNet.Application.Common.Exceptions.ValidationException;
 
 namespace DiscussionNet.Infrastructure.Responses
 {

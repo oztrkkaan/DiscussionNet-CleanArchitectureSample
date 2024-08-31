@@ -1,7 +1,6 @@
 ﻿using DiscussionNet.Application.Common.Exceptions;
 using DiscussionNet.Application.Common.Extensions;
 using DiscussionNet.Infrastructure.Responses;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Net;

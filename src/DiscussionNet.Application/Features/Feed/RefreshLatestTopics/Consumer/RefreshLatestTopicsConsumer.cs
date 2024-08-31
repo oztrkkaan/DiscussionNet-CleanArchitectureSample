@@ -1,5 +1,4 @@
 ﻿using DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Publisher;
-using DiscussionNet.Application.Features.Feed.RefreshLatestTopics;
 using MassTransit;
 using MediatR;
 

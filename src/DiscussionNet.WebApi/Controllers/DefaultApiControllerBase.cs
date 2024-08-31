@@ -1,8 +1,6 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Principal;
 
 namespace DiscussionNet.WebApi.Controllers
 {

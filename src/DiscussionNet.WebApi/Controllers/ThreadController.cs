@@ -1,7 +1,6 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
 using DiscussionNet.Application.Features.Thread.CreateThread;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiscussionNet.WebApi.Controllers

@@ -1,4 +1,3 @@
-using AspNetCoreRateLimit;
 using DiscussionNet.Application;
 using DiscussionNet.Infrastructure;
 using DiscussionNet.Infrastructure.Middlewares;

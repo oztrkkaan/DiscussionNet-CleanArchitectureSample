@@ -1,9 +1,7 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate;
 using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Publisher;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DiscussionNet.WebApi.Controllers

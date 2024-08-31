@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace DiscussionNet.Application.Common.Caching.Redis
+﻿namespace DiscussionNet.Application.Common.Caching.Redis
 {
     public interface IRedisClient
     {
