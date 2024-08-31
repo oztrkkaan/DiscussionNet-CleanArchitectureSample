@@ -1,4 +1,4 @@
-﻿using DiscussionNet.Application.Features.Thread.GetThreadsByTopicId;
+﻿using DiscussionNet.Application.Features.Comment.GetCommentsByTopicId;
 using DiscussionNet.Application.Features.Topic.CreateTopic;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +19,6 @@ namespace DiscussionNet.WebApi.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<GetThreadsByTopicIdResponse> GetThreadsByTopicId([FromQuery] GetThreadsByTopicIdCommand request, CancellationToken cancellationToken) => await _mediator.Send(request, cancellationToken);
+        public async Task<GetCommentsByTopicIdResponse> GetCommentsByTopicId([FromQuery] GetCommentsByTopicIdCommand request, CancellationToken cancellationToken) => await _mediator.Send(request, cancellationToken);
     }
 }

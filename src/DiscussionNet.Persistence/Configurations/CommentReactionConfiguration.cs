@@ -4,18 +4,18 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DiscussionNet.Persistence.Configurations
 {
-    public class ThreadReactionConfiguration : IEntityTypeConfiguration<ThreadReaction>
+    public class CommentReactionConfiguration : IEntityTypeConfiguration<CommentReaction>
     {
-        public void Configure(EntityTypeBuilder<ThreadReaction> builder)
+        public void Configure(EntityTypeBuilder<CommentReaction> builder)
         {
-            AuditableEntityConfiguration<ThreadReaction>.SetProperties(builder);
-            SoftDeleteConfiguration<ThreadReaction>.SetProperties(builder);
+            AuditableEntityConfiguration<CommentReaction>.SetProperties(builder);
+            SoftDeleteConfiguration<CommentReaction>.SetProperties(builder);
 
             builder.Property(p => p.Reaction)
                 .IsRequired()
                 .HasConversion<byte>();
 
-            builder.HasOne(m => m.Thread).WithMany(m => m.Reactions);
+            builder.HasOne(m => m.Comment).WithMany(m => m.Reactions);
             builder.HasOne(m => m.ReactedBy).WithMany(m => m.Reactions);
         }
     }

@@ -20,14 +20,14 @@ namespace DiscussionNet.Application.Features.Feed.RefreshLatestTopics
         public async Task Handle(RefreshLatestTopicsEvent notification, CancellationToken cancellationToken)
         {
             var feedItems = await _context.Topics
-            .Include(m => m.Threads.Where(m => m.CreationDate >= DateTime.Now.AddDays(-15)))
+            .Include(m => m.Comments.Where(m => m.CreationDate >= DateTime.Now.AddDays(-15)))
             .OrderByDescending(m => m.CreationDate)
             .Take(50)
             .Select(m => new FeedItem
             {
                 Subject = m.Subject,
-                ThreadCount = m.ThreadCount,
-                LastThreadCreationDate = m.Threads.OrderByDescending(x => x.CreationDate).FirstOrDefault().CreationDate
+                CommentCount = m.CommentCount,
+                LastCommentCreationDate = m.Comments.OrderByDescending(x => x.CreationDate).FirstOrDefault().CreationDate
             }).ToListAsync();
 
             await _redisClient.SetAsync("feed:latest-topics", feedItems, new TimeSpan(1, 0, 0));

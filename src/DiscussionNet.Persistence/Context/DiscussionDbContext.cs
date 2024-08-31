@@ -11,10 +11,10 @@ namespace DiscussionNet.Persistence.Context
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Topic> Topics { get; set; }
-        public DbSet<Domain.Entities.Thread> Threads { get; set; }
+        public DbSet<Domain.Entities.Comment> Comments { get; set; }
         public DbSet<UserEmailVerification> UserEmailVerifications { get; set; }
         //public DbSet<Tag> Tags { get; set; }
-        public DbSet<ThreadReaction> ThreadReactions { get; set; }
+        public DbSet<CommentReaction> CommentReactions { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<UserNotification> UserNotifications { get; set; }
 

@@ -56,8 +56,8 @@ namespace DiscussionNet.Domain.Entities
         public DateTime? DeletionDate { get; private set; }
         public ICollection<UserEmailVerification> EmailVerifications { get; set; }
         public UserEmailVerification LastEmailVerification => EmailVerifications.OrderByDescending(m => m.CreationDate).FirstOrDefault();
-        public ICollection<Thread> Threads { get; set; }
-        public ICollection<ThreadReaction> Reactions { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentReaction> Reactions { get; set; }
         public ICollection<Notification> Notifications { get; set; }
 
         public enum AuthorStatuses

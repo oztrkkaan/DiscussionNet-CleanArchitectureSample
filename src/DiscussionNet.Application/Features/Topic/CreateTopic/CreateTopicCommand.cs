@@ -1,5 +1,5 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
-using DiscussionNet.Application.Features.Thread.CreateThread;
+using DiscussionNet.Application.Features.Comment.CreateComment;
 using DiscussionNet.Domain.Entities;
 using MediatR;
 using System.Transactions;
@@ -9,7 +9,7 @@ namespace DiscussionNet.Application.Features.Topic.CreateTopic
     public class CreateTopicCommand : IRequest<CreateTopicResponse>
     {
         public string Subject { get; set; }
-        public string ThreadContent { get; set; }
+        public string CommentContent { get; set; }
         public List<Tag> Tags { get; set; }
     }
     public class CreateTopicCommandHandler : IRequestHandler<CreateTopicCommand, CreateTopicResponse>
@@ -29,7 +29,7 @@ namespace DiscussionNet.Application.Features.Topic.CreateTopic
             ThrowIfTopicAlreadyExist(request.Subject);
 
             var topic = await CreateTopic(request.Subject, cancellationToken);
-            await CreateThread(request.ThreadContent, topic.Id);
+            await CreateComment(request.CommentContent, topic.Id);
 
             scope.Complete();
 
@@ -49,15 +49,15 @@ namespace DiscussionNet.Application.Features.Topic.CreateTopic
             return topic;
         }
 
-        private async Task<CreateThreadResponse> CreateThread(string threadContent, int topicId)
+        private async Task<CreateCommentResponse> CreateComment(string commentContent, int topicId)
         {
-            var createThreadCommand = new CreateThreadCommand
+            var createCommentCommand = new CreateCommentCommand
             {
-                Content = threadContent,
+                Content = commentContent,
                 TopicId = topicId
             };
 
-            return await _mediator.Send(createThreadCommand);
+            return await _mediator.Send(createCommentCommand);
         }
 
         private void ThrowIfTopicAlreadyExist(string subject)

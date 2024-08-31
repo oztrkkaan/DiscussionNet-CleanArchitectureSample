@@ -19,7 +19,7 @@ namespace DiscussionNet.Application.Features.Notification.ReactionNotification.C
             {
                 ReactedUserId = context.Message.ReactedUserId,
                 ReceiverUserId = context.Message.ReceiverUserId,
-                ThreadId = context.Message.ThreadId
+                CommentId = context.Message.CommentId
             });
         }
     }

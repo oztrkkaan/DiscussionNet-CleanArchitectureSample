@@ -22,8 +22,8 @@ namespace DiscussionNet.Domain.Entities
         public DateTime? DeletionDate { get; private set; }
 
         public ICollection<Tag> Tags { get; private set; }
-        public ICollection<Thread> Threads { get; private set; }
-        public int ThreadCount => Threads.Count();
+        public ICollection<Comment> Comments { get; private set; }
+        public int CommentCount => Comments.Count();
 
         public void SetTag(List<Tag> tags)
         {

@@ -3,16 +3,16 @@ using DiscussionNet.Domain.Interfaces;
 
 namespace DiscussionNet.Domain.Entities
 {
-    public class ThreadReaction : AuditableEntity, ISoftDelete
+    public class CommentReaction : AuditableEntity, ISoftDelete
     {
-        public ThreadReaction(Thread thread, Reactions reaction, User reactedBy)
+        public CommentReaction(Comment comment, Reactions reaction, User reactedBy)
         {
-            SetThread(thread);
+            SetComment(comment);
             SetReaction(reaction, false);
             SetUser(reactedBy);
         }
-        public ThreadReaction() { }
-        public Thread Thread { get; private set; }
+        public CommentReaction() { }
+        public Comment Comment { get; private set; }
         public User ReactedBy { get; private set; }
         public Reactions Reaction { get; private set; }
         public bool IsDeleted { get; private set; }
@@ -30,9 +30,9 @@ namespace DiscussionNet.Domain.Entities
             IsDeleted = true;
             DeletionDate = DateTime.Now;
         }
-        private void SetThread(Thread thread)
+        private void SetComment(Comment comment)
         {
-            Thread = thread;
+            Comment = comment;
         }
         private void SetUser(User user)
         {

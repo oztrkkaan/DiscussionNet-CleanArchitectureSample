@@ -3,7 +3,7 @@ using DiscussionNet.Application.Common.Hangfire;
 using DiscussionNet.Application.Features.Email.RegistrationEmail.Consumer;
 using DiscussionNet.Application.Features.Feed.RefreshLatestTopics.Consumer;
 using DiscussionNet.Application.Features.Notification.ReactionNotification.Consumer;
-using DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Consumer;
+using DiscussionNet.Application.Features.CommentReactions.CreateOrUpdate.Consumer;
 using DiscussionNet.Infrastructure;
 using DiscussionNet.Persistence;
 using MassTransit;
@@ -47,7 +47,7 @@ void ConsumerDefines(IServiceCollection services)
         x.AddConsumer<SendRegistrationEmailConsumer>()
             .Endpoint(cfg => cfg.Name = "emailservice.registration");
 
-        x.AddConsumer<CreateOrUpdateThreadReactionConsumer>()
+        x.AddConsumer<CreateOrUpdateCommentReactionConsumer>()
            .Endpoint(cfg => cfg.Name = "reactionservice.reaction");
        
         x.AddConsumer<RefreshLatestTopicsConsumer>()

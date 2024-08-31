@@ -2,21 +2,21 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace DiscussionNet.Application.Features.Thread.CreateThread
+namespace DiscussionNet.Application.Features.Comment.CreateComment
 {
-    public class CreateThreadCommand : IRequest<CreateThreadResponse>
+    public class CreateCommentCommand : IRequest<CreateCommentResponse>
     {
         public string Content { get; set; }
         public int TopicId { get; set; }
     }
 
-    public class CreateThreadCommandHandler : IRequestHandler<CreateThreadCommand, CreateThreadResponse>
+    public class CreateCommentCommandHandler : IRequestHandler<CreateCommentCommand, CreateCommentResponse>
     {
         IDiscussionDbContext _context;
         IIdentityManager _identityManager;
         IHttpContextAccessor _httpContextAccessor;
         private string _ipAddress;
-        public CreateThreadCommandHandler(IDiscussionDbContext context, IIdentityManager identityManager, IHttpContextAccessor httpContextAccessor)
+        public CreateCommentCommandHandler(IDiscussionDbContext context, IIdentityManager identityManager, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _identityManager = identityManager;
@@ -24,19 +24,19 @@ namespace DiscussionNet.Application.Features.Thread.CreateThread
             _ipAddress = _httpContextAccessor.HttpContext.Connection.RemoteIpAddress.ToString();
         }
 
-        public async Task<CreateThreadResponse> Handle(CreateThreadCommand request, CancellationToken cancellationToken)
+        public async Task<CreateCommentResponse> Handle(CreateCommentCommand request, CancellationToken cancellationToken)
         {
 
             var user = GetUserById(_identityManager.User.Id);
             var topic = GetTopicById(request.TopicId);
-            var thread = new Domain.Entities.Thread(request.Content, topic, user, _ipAddress);
+            var comment = new Domain.Entities.Comment(request.Content, topic, user, _ipAddress);
 
-            await _context.Threads.AddAsync(thread);
+            await _context.Comments.AddAsync(comment);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new CreateThreadResponse
+            return new CreateCommentResponse
             {
-                Id = thread.Id
+                Id = comment.Id
             };
         }
 
@@ -56,7 +56,7 @@ namespace DiscussionNet.Application.Features.Thread.CreateThread
         }
     }
 
-    public class CreateThreadResponse
+    public class CreateCommentResponse
     {
         public int Id { get; set; }
     }

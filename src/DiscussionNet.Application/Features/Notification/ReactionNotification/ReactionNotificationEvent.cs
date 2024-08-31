@@ -11,7 +11,7 @@ namespace DiscussionNet.Application.Features.Notification.ReactionNotification
     {
         public int ReactedUserId { get; init; }
         public int ReceiverUserId { get; init; }
-        public int ThreadId { get; init; }
+        public int CommentId { get; init; }
     }
 
     internal class ReactionNotificationEventHandler : INotificationHandler<ReactionNotificationEvent>
@@ -30,12 +30,12 @@ namespace DiscussionNet.Application.Features.Notification.ReactionNotification
             var reactedUser = await _mediator.Send(new GetUserByIdQuery { UserId = notification.ReactedUserId }, cancellationToken);
             ArgumentNullException.ThrowIfNull(reactedUser);
 
-            var thread = _context.Threads.Include(m => m.Topic).FirstOrDefault(m => m.Id == notification.ThreadId);
-            ArgumentNullException.ThrowIfNull(thread);
+            var comment = _context.Comments.Include(m => m.Topic).FirstOrDefault(m => m.Id == notification.CommentId);
+            ArgumentNullException.ThrowIfNull(comment);
 
             using var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
 
-            var notificationId = await CreateNotification(reactedUser.Username, thread.Topic.Subject, cancellationToken);
+            var notificationId = await CreateNotification(reactedUser.Username, comment.Topic.Subject, cancellationToken);
             await CreateUserNotification(notification.ReceiverUserId, notificationId, cancellationToken);
 
             transaction.Complete();

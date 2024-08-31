@@ -60,7 +60,7 @@ namespace DiscussionNet.Persistence.Migrations
                     b.ToTable("Notifications");
                 });
 
-            modelBuilder.Entity("DiscussionNet.Domain.Entities.Thread", b =>
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -89,7 +89,7 @@ namespace DiscussionNet.Persistence.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ParentThreadId")
+                    b.Property<int?>("ParentCommentId")
                         .HasColumnType("int");
 
                     b.Property<byte>("Status")
@@ -107,10 +107,10 @@ namespace DiscussionNet.Persistence.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Threads");
+                    b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("DiscussionNet.Domain.Entities.ThreadReaction", b =>
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.CommentReaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -136,16 +136,16 @@ namespace DiscussionNet.Persistence.Migrations
                     b.Property<byte>("Reaction")
                         .HasColumnType("tinyint");
 
-                    b.Property<int?>("ThreadId")
+                    b.Property<int?>("CommentId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ReactedById");
 
-                    b.HasIndex("ThreadId");
+                    b.HasIndex("CommentId");
 
-                    b.ToTable("ThreadReactions");
+                    b.ToTable("CommentReactions");
                 });
 
             modelBuilder.Entity("DiscussionNet.Domain.Entities.Topic", b =>
@@ -335,14 +335,14 @@ namespace DiscussionNet.Persistence.Migrations
                     b.ToTable("UserNotification", (string)null);
                 });
 
-            modelBuilder.Entity("DiscussionNet.Domain.Entities.Thread", b =>
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.Comment", b =>
                 {
                     b.HasOne("DiscussionNet.Domain.Entities.Topic", "Topic")
-                        .WithMany("Threads")
+                        .WithMany("Comments")
                         .HasForeignKey("TopicId");
 
                     b.HasOne("DiscussionNet.Domain.Entities.User", "User")
-                        .WithMany("Threads")
+                        .WithMany("Comments")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Topic");
@@ -350,19 +350,19 @@ namespace DiscussionNet.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DiscussionNet.Domain.Entities.ThreadReaction", b =>
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.CommentReaction", b =>
                 {
                     b.HasOne("DiscussionNet.Domain.Entities.User", "ReactedBy")
                         .WithMany("Reactions")
                         .HasForeignKey("ReactedById");
 
-                    b.HasOne("DiscussionNet.Domain.Entities.Thread", "Thread")
+                    b.HasOne("DiscussionNet.Domain.Entities.Comment", "Comment")
                         .WithMany("Reactions")
-                        .HasForeignKey("ThreadId");
+                        .HasForeignKey("CommentId");
 
                     b.Navigation("ReactedBy");
 
-                    b.Navigation("Thread");
+                    b.Navigation("Comment");
                 });
 
             modelBuilder.Entity("DiscussionNet.Domain.Entities.UserEmailVerification", b =>
@@ -404,14 +404,14 @@ namespace DiscussionNet.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DiscussionNet.Domain.Entities.Thread", b =>
+            modelBuilder.Entity("DiscussionNet.Domain.Entities.Comment", b =>
                 {
                     b.Navigation("Reactions");
                 });
 
             modelBuilder.Entity("DiscussionNet.Domain.Entities.Topic", b =>
                 {
-                    b.Navigation("Threads");
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("DiscussionNet.Domain.Entities.User", b =>
@@ -420,7 +420,7 @@ namespace DiscussionNet.Persistence.Migrations
 
                     b.Navigation("Reactions");
 
-                    b.Navigation("Threads");
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

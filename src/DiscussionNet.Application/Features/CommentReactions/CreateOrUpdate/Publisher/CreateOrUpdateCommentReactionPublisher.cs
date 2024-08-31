@@ -1,27 +1,27 @@
 ﻿using DiscussionNet.Application.Common.Interfaces;
 using MassTransit;
 using MediatR;
-using static DiscussionNet.Domain.Entities.ThreadReaction;
+using static DiscussionNet.Domain.Entities.CommentReaction;
 
-namespace DiscussionNet.Application.Features.ThreadReactions.CreateOrUpdate.Publisher
+namespace DiscussionNet.Application.Features.CommentReactions.CreateOrUpdate.Publisher
 {
-    public class CreateOrUpdateThreadReactionPublisher : INotification
+    public class CreateOrUpdateCommentReactionPublisher : INotification
     {
         public Reactions Reaction { get; set; }
-        public int ThreadId { get; set; }
+        public int CommentId { get; set; }
         public int? ReactedUserId { get; set; }
     }
 
-    public class CreateThreadReactionPublisherHandler : INotificationHandler<CreateOrUpdateThreadReactionPublisher>
+    public class CreateCommentReactionPublisherHandler : INotificationHandler<CreateOrUpdateCommentReactionPublisher>
     {
         private readonly ISendEndpointProvider _sendEndpointProvider;
         private const string EMAILSERVICE_QUEUE_NAME = "reactionservice.reaction";
-        public CreateThreadReactionPublisherHandler(ISendEndpointProvider sendEndpointProvider, IIdentityManager identityManager)
+        public CreateCommentReactionPublisherHandler(ISendEndpointProvider sendEndpointProvider, IIdentityManager identityManager)
         {
             _sendEndpointProvider = sendEndpointProvider;
         }
 
-        public async Task Handle(CreateOrUpdateThreadReactionPublisher notification, CancellationToken cancellationToken)
+        public async Task Handle(CreateOrUpdateCommentReactionPublisher notification, CancellationToken cancellationToken)
         {
             var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{EMAILSERVICE_QUEUE_NAME}"));
             await endpoint.Send(notification, cancellationToken);

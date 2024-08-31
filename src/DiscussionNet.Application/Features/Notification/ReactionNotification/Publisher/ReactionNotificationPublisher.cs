@@ -7,7 +7,7 @@ namespace DiscussionNet.Application.Features.Notification.ReactionNotification.P
     {
         public int ReactedUserId { get; set; }
         public int ReceiverUserId { get; init; }
-        public int ThreadId { get; init; }
+        public int CommentId { get; init; }
     }
 
     internal class ReactionNotificationPublisherHandler : INotificationHandler<ReactionNotificationPublisher>
